@@ -25,6 +25,7 @@
   .email-input { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #E5E5E5; margin: 20px 0; font-size: 16px; }
   .btn { background: var(--nebula-blue); color: white; padding: 15px; border-radius: 50px; border: none; width: 100%; font-weight: bold; cursor: pointer; }
   .btn:disabled { background: #ccc; }
+  .success-check { font-size: 48px; color: var(--nebula-forest); margin-bottom: 10px; }
 </style>
 </head>
 <body>
@@ -35,7 +36,7 @@
   <form id="MC2H62NAMVRJGXPGNSH2XONEHNTA" data-uma-forms="true" method="POST">
     
     <div id="step-1" class="card">
-      <h1>Question 1</h1>
+      <h1>AI Readiness</h1>
       <p>How is your data organized?</p>
       <div class="option" onclick="selectScore(1, this)">Silos & Spreadsheets</div>
       <div class="option" onclick="selectScore(2, this)">Centralized but messy</div>
@@ -43,24 +44,22 @@
       <div class="option" onclick="selectScore(4, this)">Fully Governed</div>
       
       <input type="hidden" name="ai_score" id="ai_score_input">
-      
       <button type="button" id="next-btn" class="btn" style="margin-top:20px" disabled onclick="showEmailStep()">Next Step</button>
     </div>
 
     <div id="step-2" class="card hidden">
       <h1>Final Step</h1>
-      <p>Enter your email to see your results.</p>
-      
+      <p>Enter your email to sync results.</p>
       <input type="email" name="email" id="email-field" class="email-input" placeholder="email@company.com" required>
-      
-      <button type="submit" class="btn">Submit & View Results</button>
+      <button type="submit" class="btn">Submit to Marketing Cloud</button>
     </div>
   </form>
 
-  <div id="step-success" class="card hidden">
-    <h1 style="color: var(--nebula-forest)">Success!</h1>
-    <p>Your data has been sent to Marketing Cloud Advanced. Your profile is being updated.</p>
-    <button class="btn" style="margin-top: 20px;" onclick="window.location.reload()">Restart</button>
+  <div id="step-success" class="card hidden" style="text-align: center;">
+    <div class="success-check">✓</div>
+    <h1 style="color: var(--nebula-forest)">Submission Successful</h1>
+    <p>Your data has been sent to your Unified Customer Profile. Check the <strong>Usage</strong> tab in Salesforce to see the hit!</p>
+    <button class="btn" style="margin-top: 20px;" onclick="window.location.reload()">Test Another Email</button>
   </div>
 </div>
 
@@ -79,15 +78,17 @@
     document.getElementById('step-2').classList.remove('hidden');
   }
 
-  // UI behavior for the success state
+  // --- SUCCESS HANDLING LOGIC ---
   const form = document.getElementById('MC2H62NAMVRJGXPGNSH2XONEHNTA');
-  form.onsubmit = function() {
-    // We delay the UI swap slightly to ensure the SFDC script can capture the event
+  
+  form.addEventListener('submit', function(e) {
+    // We give the Salesforce script 500ms to capture the data before we swap the UI
     setTimeout(() => {
       document.getElementById('step-2').classList.add('hidden');
       document.getElementById('step-success').classList.remove('hidden');
+      console.log("UI Swapped to Success. Data should be in Salesforce.");
     }, 500);
-  };
+  });
 </script>
 
 </body>
