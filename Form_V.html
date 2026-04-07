@@ -33,7 +33,7 @@
 <header class="site-header">NEBULA CONSULTING</header>
 
 <div class="container">
-  <form id="MC2H62NAMVRJGXPGNSH2XONEHNTA" data-uma-forms="true" method="POST">
+  <form id="MC2H62NAMVRJGXPGNSH2XONEHNTA" data-uma-forms="true">
     
     <div id="step-1" class="card">
       <h1>AI Readiness</h1>
@@ -64,7 +64,7 @@
 </div>
 
 <script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
-
+ 
 <script>
   function selectScore(score, el) {
     document.getElementById('ai_score_input').value = score;
@@ -77,18 +77,6 @@
     document.getElementById('step-1').classList.add('hidden');
     document.getElementById('step-2').classList.remove('hidden');
   }
-
-  // --- SUCCESS HANDLING LOGIC ---
-  const form = document.getElementById('MC2H62NAMVRJGXPGNSH2XONEHNTA');
-  
-  form.addEventListener('submit', function(e) {
-    // We give the Salesforce script 500ms to capture the data before we swap the UI
-    setTimeout(() => {
-      document.getElementById('step-2').classList.add('hidden');
-      document.getElementById('step-success').classList.remove('hidden');
-      console.log("UI Swapped to Success. Data should be in Salesforce.");
-    }, 500);
-  });
 </script>
 
 </body>
