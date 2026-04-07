@@ -59,16 +59,16 @@
 
   <div id="step-success" class="card hidden">
     <h1 style="color: var(--nebula-forest)">Success!</h1>
-    <p>Your data has been sent to Marketing Cloud. Your profile is being updated.</p>
+    <p>Your data has been sent to Marketing Cloud Advanced. Your profile is being updated.</p>
+    <button class="btn" style="margin-top: 20px;" onclick="window.location.reload()">Restart</button>
   </div>
 </div>
+
 <script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
+
 <script>
   function selectScore(score, el) {
-    // Set the value in the hidden input field
     document.getElementById('ai_score_input').value = score;
-    
-    // UI selection logic
     document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
     el.classList.add('selected');
     document.getElementById('next-btn').disabled = false;
@@ -79,13 +79,14 @@
     document.getElementById('step-2').classList.remove('hidden');
   }
 
-  // Handle the form submission locally for the UI
-  const form = document.getElementById('mc-form');
+  // UI behavior for the success state
+  const form = document.getElementById('MC2H62NAMVRJGXPGNSH2XONEHNTA');
   form.onsubmit = function() {
-    // If you are testing and don't want the page to actually redirect yet, 
-    // you can use fetch() instead, but a standard submit is most reliable for MC.
-    document.getElementById('step-2').classList.add('hidden');
-    document.getElementById('step-success').classList.remove('hidden');
+    // We delay the UI swap slightly to ensure the SFDC script can capture the event
+    setTimeout(() => {
+      document.getElementById('step-2').classList.add('hidden');
+      document.getElementById('step-success').classList.remove('hidden');
+    }, 500);
   };
 </script>
 
