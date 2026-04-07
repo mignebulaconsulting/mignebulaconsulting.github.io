@@ -1,19 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Readiness Assessment | Nebula Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <title>Simple Form</title>
+  :root {
+    --nebula-blue:    #313A4C;
+    --nebula-pop:     #BAD532;
+    --nebula-deep:    #0D5C22;
+    --nebula-forest:  #3B824B;
+    --nebula-sage:    #6FA578;
+    --nebula-mint:    #B2D4B8;
+    --nebula-mist:    #F2F6E6;
+    --nebula-silver:  #E5E5E5;
+    --nebula-slate:   #707070;
+    --nebula-overlay: #3C4456;
+    --white:          #FFFFFF;
+    --font: 'Open Sans', Helvetica, Arial, sans-serif;
+    --radius: 16px;
+  }
 
+  body {
+    background: #EFEFED;
+    color: var(--nebula-blue);
+    font-family: var(--font);
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─── */
+  .site-header {
+    background: var(--nebula-blue);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+    border-bottom: 3px solid var(--nebula-pop);
+  }
+
+  .site-header img { height: 28px; filter: brightness(0) invert(1); }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+  }
+
+  /* ─── CARDS ─── */
+  .intro, .question-card, .results { text-align: center; }
+
+  .question-card {
+    background: var(--white);
+    border: 1.5px solid var(--nebula-silver);
+    border-left: 4px solid var(--nebula-pop);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: 0 2px 16px rgba(49,58,76,0.07);
+  }
+
+  .q-text {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 28px;
+    color: var(--nebula-blue);
+  }
+
+  /* ─── INPUTS & BUTTONS ─── */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+
+  .option {
+    border: 1.5px solid var(--nebula-silver);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+  }
+
+  .option.selected {
+    border-color: var(--nebula-forest);
+    background: var(--nebula-mist);
+  }
+
+  .email-input {
+    width: 100%;
+    padding: 18px;
+    border-radius: 12px;
+    border: 2px solid var(--nebula-silver);
+    font-size: 16px;
+    outline: none;
+  }
+
+  .email-input:focus { border-color: var(--nebula-pop); }
+
+  .btn-start, .btn-next {
+    background: var(--nebula-blue);
+    color: white;
+    padding: 16px 40px;
+    border-radius: 100px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .hidden { display: none; }
+  
+  /* Results styling simplified for test */
+  .result-hero { background: var(--nebula-blue); color: white; padding: 40px; border-radius: 16px; }
+</style>
 </head>
 <body>
 
+<header class="site-header">
+  <img src="https://nebulaconsulting.co.uk/wp-content/themes/nebula/img/logo_nebula.svg" alt="Nebula Consulting">
+</header>
 
-<script async="async" src="https://nebula.my.site.com/lp/assets/scripts/external-forms-host.min.js"></script>
-<script async="async" src="https://nebula.my.site.com/lp/assets/lightning_out_embed/prod/en-US/MCC7TRL25V4VFBNBCATPZ2Y7LJU4.js" onload="window.sfdc_forms?sfdc_forms.init():window.sfdc_forms={loReady:!0}"></script>
+<div class="container">
 
-<fragment-z4vefd44emvnnp7nwq4ctuet5x3w47kvpe8cb8z4xf8 title="Marketing Form" id="container" data-web-tracking="true" data-external-form="true" data-recaptcha-site-key=""></fragment-z4vefd44emvnnp7nwq4ctuet5x3w47kvpe8cb8z4xf8>
+  <div id="intro" class="intro">
+    <h1>AI Readiness Test</h1>
+    <p>A quick 1-question pilot for Marketing Cloud Advanced integration.</p>
+    <button class="btn-start" onclick="startQuiz()">Begin Test</button>
+  </div>
+
+  <div id="quiz-step" class="hidden">
+    <div class="question-card">
+      <div class="q-text" id="q-text">How would you describe your organization's data right now?</div>
+      <div class="options" id="options-list">
+        <div class="option" onclick="selectOption(0, 1)">Data lives in spreadsheets and silos.</div>
+        <div class="option" onclick="selectOption(1, 2)">We have tools but data is messy.</div>
+        <div class="option" onclick="selectOption(2, 3)">Data is mostly clean and centralized.</div>
+        <div class="option" onclick="selectOption(3, 4)">Unified data with active governance.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="email-step" class="hidden">
+    <div class="question-card">
+      <div class="q-text">Where should we send your results?</div>
+      <input type="email" id="user-email" class="email-input" placeholder="enter your email address">
+      <button class="btn-next" onclick="submitToMarketingCloud()">Get Results →</button>
+    </div>
+  </div>
+
+  <div id="results" class="results hidden">
+    <div class="result-hero">
+      <h2>Submission Successful!</h2>
+      <p id="final-score-text"></p>
+      <p style="color: var(--nebula-pop); margin-top: 10px;">Check your Marketing Cloud Form Handler for the data.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let selectedScore = 0;
+
+function startQuiz() {
+  document.getElementById('intro').classList.add('hidden');
+  document.getElementById('quiz-step').classList.remove('hidden');
+}
+
+function selectOption(index, score) {
+  selectedScore = score;
+  // Visual feedback
+  const opts = document.querySelectorAll('.option');
+  opts.forEach((opt, i) => opt.classList.toggle('selected', i === index));
+  
+  // Brief delay then move to email step
+  setTimeout(() => {
+    document.getElementById('quiz-step').classList.add('hidden');
+    document.getElementById('email-step').classList.remove('hidden');
+  }, 400);
+}
+
+function submitToMarketingCloud() {
+  const email = document.getElementById('user-email').value;
+  
+  if (!email || !email.includes('@')) {
+    alert("Please enter a valid email.");
+    return;
+  }
+
+  // --- MARKETING CLOUD INTEGRATION ---
+  // Replace the URL with your Form Handler endpoint from Salesforce
+  const FORM_HANDLER_URL = 'YOUR_FORM_HANDLER_URL_HERE';
+
+  const formData = new URLSearchParams();
+  formData.append('email', email); // Map to your Form Handler Email field
+  formData.append('ai_score', selectedScore); // Map to your Number field
+
+  // We use 'no-cors' for simple form posts to bypass browser restrictions
+  fetch(FORM_HANDLER_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: formData
+  }).then(() => {
+    console.log("Data sent to Salesforce Profile.");
+    showResults(email);
+  }).catch(err => {
+    console.error("Submission error:", err);
+    // Even if it fails (due to CORS in test), we show results locally
+    showResults(email);
+  });
+}
+
+function showResults(email) {
+  document.getElementById('email-step').classList.add('hidden');
+  document.getElementById('results').classList.remove('hidden');
+  document.getElementById('final-score-text').textContent = 
+    `Results for ${email}: You scored ${selectedScore}/4 on the readiness scale.`;
+}
+</script>
 
 </body>
 </html>
