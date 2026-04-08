@@ -33,7 +33,7 @@
 <header class="site-header">NEBULA CONSULTING</header>
 
 <div class="container">
-  <form  id="MCYVEOTINIDRCTHJJ4JWWGYJUFVU" data-uma-forms="true">
+  <form id="MCYVEOTINIDRCTHJJ4JWWGYJUFVU" data-uma-forms="true">
     
     <div id="step-1" class="card">
       <h1>AI Readiness</h1>
@@ -66,11 +66,9 @@
   </div>
 </div>
 
-
 <script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
  
 <script>
-  // Modified to handle both score and level label
   function selectScore(score, level, el) {
     document.getElementById('ai_score_input').value = score;
     document.getElementById('ai_level_input').value = level;
@@ -84,19 +82,21 @@
     document.getElementById('step-2').classList.remove('hidden');
   }
 
-  // Handle display logic upon submission
+  // UPDATED: Changed the ID here to match the form ID above
   const form = document.getElementById('MCYVEOTINIDRCTHJJ4JWWGYJUFVU');
-  form.onsubmit = function() {
-    const finalScore = document.getElementById('ai_score_input').value;
-    const finalLevel = document.getElementById('ai_level_input').value;
+  
+  if (form) {
+    form.onsubmit = function() {
+      const finalScore = document.getElementById('ai_score_input').value;
+      const finalLevel = document.getElementById('ai_level_input').value;
 
-    // Short timeout to allow the SFDC script to capture data before hiding form
-    setTimeout(() => {
-      document.getElementById('result-display').innerText = `Your AI Level: ${finalLevel} (Score: ${finalScore})`;
-      document.getElementById('step-2').classList.add('hidden');
-      document.getElementById('step-success').classList.remove('hidden');
-    }, 500);
-  };
+      setTimeout(() => {
+        document.getElementById('result-display').innerText = `Your AI Level: ${finalLevel} (Score: ${finalScore})`;
+        document.getElementById('step-2').classList.add('hidden');
+        document.getElementById('step-success').classList.remove('hidden');
+      }, 500);
+    };
+  }
 </script>
 
 </body>
