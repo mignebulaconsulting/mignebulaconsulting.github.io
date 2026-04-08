@@ -33,7 +33,7 @@
 <header class="site-header">NEBULA CONSULTING</header>
 
 <div class="container">
-  <form id="MC2H62NAMVRJGXPGNSH2XONEHNTA" data-uma-forms="true">
+  <form  id="MCYVEOTINIDRCTHJJ4JWWGYJUFVU" data-uma-forms="true">
     
     <div id="step-1" class="card">
       <h1>AI Readiness</h1>
@@ -66,6 +66,38 @@
   </div>
 </div>
 
+
 <script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
  
 <script>
+  // Modified to handle both score and level label
+  function selectScore(score, level, el) {
+    document.getElementById('ai_score_input').value = score;
+    document.getElementById('ai_level_input').value = level;
+    document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('next-btn').disabled = false;
+  }
+
+  function showEmailStep() {
+    document.getElementById('step-1').classList.add('hidden');
+    document.getElementById('step-2').classList.remove('hidden');
+  }
+
+  // Handle display logic upon submission
+  const form = document.getElementById('MC2H62NAMVRJGXPGNSH2XONEHNTA');
+  form.onsubmit = function() {
+    const finalScore = document.getElementById('ai_score_input').value;
+    const finalLevel = document.getElementById('ai_level_input').value;
+
+    // Short timeout to allow the SFDC script to capture data before hiding form
+    setTimeout(() => {
+      document.getElementById('result-display').innerText = `Your AI Level: ${finalLevel} (Score: ${finalScore})`;
+      document.getElementById('step-2').classList.add('hidden');
+      document.getElementById('step-success').classList.remove('hidden');
+    }, 500);
+  };
+</script>
+
+</body>
+</html>
