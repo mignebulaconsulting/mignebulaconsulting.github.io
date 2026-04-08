@@ -19,12 +19,13 @@
   .card { background: var(--white); border-radius: 16px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-left: 5px solid var(--nebula-pop); }
   .hidden { display: none; }
   h1 { font-size: 24px; margin-bottom: 10px; }
-  .option { border: 2px solid #E5E5E5; border-radius: 10px; padding: 15px; cursor: pointer; margin-bottom: 10px; transition: 0.2s; text-align: left; }
+  .option { border: 2px solid #E5E5E5; border-radius: 10px; padding: 15px; cursor: pointer; margin-bottom: 10px; transition: 0.2s; }
   .option:hover { border-color: var(--nebula-pop); }
   .option.selected { border-color: var(--nebula-forest); background: #F2F6E6; font-weight: bold; }
   .email-input { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #E5E5E5; margin: 20px 0; font-size: 16px; }
   .btn { background: var(--nebula-blue); color: white; padding: 15px; border-radius: 50px; border: none; width: 100%; font-weight: bold; cursor: pointer; }
   .btn:disabled { background: #ccc; }
+  .success-check { font-size: 48px; color: var(--nebula-forest); margin-bottom: 10px; }
 </style>
 </head>
 <body>
@@ -37,63 +38,34 @@
     <div id="step-1" class="card">
       <h1>AI Readiness</h1>
       <p>How is your data organized?</p>
-      <div class="option" onclick="selectOption(1, 'Exploring', this)">Silos & Spreadsheets</div>
-      <div class="option" onclick="selectOption(2, 'Gliding', this)">Centralized but messy</div>
-      <div class="option" onclick="selectOption(3, 'Propelling', this)">Clean & Organized</div>
-      <div class="option" onclick="selectOption(4, 'Soaring', this)">Fully Governed</div>
+      <div class="option" onclick="selectScore(1, 'Exploring', this)">Silos & Spreadsheets</div>
+      <div class="option" onclick="selectScore(2, 'Gliding', this)">Centralized but messy</div>
+      <div class="option" onclick="selectScore(3, 'Propelling', this)">Clean & Organized</div>
+      <div class="option" onclick="selectScore(4, 'Soaring', this)">Fully Governed</div>
       
       <input type="hidden" name="ai_score" id="ai_score_input">
       <input type="hidden" name="ai_level" id="ai_level_input">
-      
+
       <button type="button" id="next-btn" class="btn" style="margin-top:20px" disabled onclick="showEmailStep()">Next Step</button>
     </div>
 
     <div id="step-2" class="card hidden">
       <h1>Final Step</h1>
-      <p>Enter your email to see your results.</p>
+      <p>Enter your email to sync results.</p>
       <input type="email" name="email" id="email-field" class="email-input" placeholder="email@company.com" required>
-      <button type="submit" class="btn">Submit & View Results</button>
+      <button type="submit" class="btn">Submit to Marketing Cloud</button>
     </div>
   </form>
 
-  <div id="step-success" class="card hidden">
-    <h1 style="color: var(--nebula-forest)">Success!</h1>
-    <p>Your data has been sent to Marketing Cloud.</p>
-    <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--nebula-silver);">
-    <p><strong>Your Result:</strong></p>
-    <p id="display-level" style="font-size: 18px; margin-top: 5px;"></p>
+  <div id="step-success" class="card hidden" style="text-align: center;">
+    <div class="success-check">✓</div>
+    <h1 style="color: var(--nebula-forest)">Submission Successful</h1>
+    <p id="result-display" style="font-weight: bold; margin-bottom: 10px;"></p>
+    <p>Your data has been sent to your Unified Customer Profile.</p>
+    <button class="btn" style="margin-top: 20px;" onclick="window.location.reload()">Test Another Email</button>
   </div>
 </div>
 
 <script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
-
+ 
 <script>
-  function selectOption(score, level, el) {
-    document.getElementById('ai_score_input').value = score;
-    document.getElementById('ai_level_input').value = level;
-    document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
-    el.classList.add('selected');
-    document.getElementById('next-btn').disabled = false;
-  }
-
-  function showEmailStep() {
-    document.getElementById('step-1').classList.add('hidden');
-    document.getElementById('step-2').classList.remove('hidden');
-  }
-
-  const form = document.getElementById('MC2H62NAMVRJGXPGNSH2XONEHNTA');
-  form.onsubmit = function() {
-    // Capture values to display on the final screen
-    const finalScore = document.getElementById('ai_score_input').value;
-    const finalLevel = document.getElementById('ai_level_input').value;
-
-    setTimeout(() => {
-      document.getElementById('display-level').innerHTML = `AI Level: <strong>${finalLevel}</strong> (Score: ${finalScore})`;
-      document.getElementById('step-2').classList.add('hidden');
-      document.getElementById('step-success').classList.remove('hidden');
-    }, 500);
-  };
-</script>
-
-</body>
-</html>
