@@ -20,9 +20,11 @@
   .hidden { display: none; }
   h1 { font-size: 24px; margin-bottom: 10px; }
   .option { border: 2px solid #E5E5E5; border-radius: 10px; padding: 15px; cursor: pointer; margin-bottom: 10px; transition: 0.2s; }
+  .option:hover { border-color: var(--nebula-pop); }
   .option.selected { border-color: var(--nebula-forest); background: #F2F6E6; font-weight: bold; }
   .email-input { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #E5E5E5; margin: 20px 0; font-size: 16px; }
   .btn { background: var(--nebula-blue); color: white; padding: 15px; border-radius: 50px; border: none; width: 100%; font-weight: bold; cursor: pointer; }
+  .btn:disabled { background: #ccc; }
 </style>
 </head>
 <body>
@@ -30,7 +32,7 @@
 <header class="site-header">NEBULA CONSULTING</header>
 
 <div class="container">
-  <form id="MCYVEOTINIDRCTHJJ4JWWGYJUFVU" data-uma-forms="true">
+  <form id="MC2H62NAMVRJGXPGNSH2XONEHNTA" data-uma-forms="true" method="POST">
     
     <div id="step-1" class="card">
       <h1>AI Readiness</h1>
@@ -43,20 +45,20 @@
       <input type="hidden" name="ai_score" id="ai_score_input">
       <input type="hidden" name="ai_level" id="ai_level_input">
       
-      <button type="button" id="next-btn" class="btn" style="margin-top:20px; opacity:0.5;" disabled onclick="showEmailStep()">Next Step</button>
+      <button type="button" id="next-btn" class="btn" style="margin-top:20px" disabled onclick="showEmailStep()">Next Step</button>
     </div>
 
     <div id="step-2" class="card hidden">
       <h1>Final Step</h1>
-      <p>Enter email to sync results.</p>
+      <p>Enter your email to see your results.</p>
       <input type="email" name="email" id="email-field" class="email-input" placeholder="email@company.com" required>
-      <button type="button" class="btn" onclick="validateAndSubmit()">Submit to Marketing Cloud</button>
+      <button type="submit" class="btn">Submit & View Results</button>
     </div>
   </form>
 
-  <div id="step-success" class="card hidden" style="text-align: center;">
-    <h1 style="color: var(--nebula-forest)">Submission Active</h1>
-    <p>Your AI Level and Score have been sent to Salesforce.</p>
+  <div id="step-success" class="card hidden">
+    <h1 style="color: var(--nebula-forest)">Success!</h1>
+    <p>Your AI Level and Score have been sent to Marketing Cloud.</p>
   </div>
 </div>
 
@@ -64,15 +66,11 @@
 
 <script>
   function selectOption(score, level, el) {
-    // Populate both hidden fields
     document.getElementById('ai_score_input').value = score;
     document.getElementById('ai_level_input').value = level;
-    
-    // UI Update
     document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
     el.classList.add('selected');
     document.getElementById('next-btn').disabled = false;
-    document.getElementById('next-btn').style.opacity = "1";
   }
 
   function showEmailStep() {
@@ -80,24 +78,13 @@
     document.getElementById('step-2').classList.remove('hidden');
   }
 
-  function validateAndSubmit() {
-    const email = document.getElementById('email-field').value;
-    if (!email || !email.includes('@')) {
-      alert("Please enter a valid email address.");
-      return;
-    }
-
-    // Manual submission trigger for MC Next
-    if (typeof SFDCFormHandler !== 'undefined') {
-      SFDCFormHandler.submit('MC2H62NAMVRJGXPGNSH2XONEHNTA'); 
-      console.log("Submitted Score and Level to Salesforce.");
-      
+  const form = document.getElementById('MC2H62NAMVRJGXPGNSH2XONEHNTA');
+  form.onsubmit = function() {
+    setTimeout(() => {
       document.getElementById('step-2').classList.add('hidden');
       document.getElementById('step-success').classList.remove('hidden');
-    } else {
-      alert("Script loading... please try again in a second.");
-    }
-  }
+    }, 500);
+  };
 </script>
 
 </body>
