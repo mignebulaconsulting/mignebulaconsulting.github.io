@@ -3,643 +3,101 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Readiness Assessment</title>
+<title>AI Readiness Assessment | Nebula Consulting</title>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --nebula-blue:    #313A4C;
-    --nebula-pop:     #BAD532;
-    --nebula-deep:    #0D5C22;
-    --nebula-forest:  #3B824B;
-    --nebula-sage:    #6FA578;
-    --nebula-mint:    #B2D4B8;
-    --nebula-mist:    #F2F6E6;
-    --nebula-silver:  #E5E5E5;
-    --nebula-slate:   #707070;
-    --nebula-overlay: #3C4456;
-    --white:          #FFFFFF;
+    --nebula-blue: #313A4C;
+    --nebula-pop: #BAD532;
+    --nebula-forest: #3B824B;
+    --nebula-mint: #B2D4B8;
+    --nebula-mist: #F2F6E6;
+    --nebula-silver: #E5E5E5;
+    --nebula-slate: #707070;
+    --white: #FFFFFF;
     --font: 'Open Sans', Helvetica, Arial, sans-serif;
     --radius: 16px;
   }
-
-  /* Reset for embedding */
-  #nebula-quiz-container {
-    color: var(--nebula-blue);
-    font-family: var(--font);
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 24px;
-  }
-
-  /* ─── INTRO ─── */
+  #nebula-quiz-container { color: var(--nebula-blue); font-family: var(--font); max-width: 800px; margin: 0 auto; padding: 24px; }
   .intro { text-align: center; }
-
-  .intro-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--nebula-blue);
-    background: var(--nebula-pop);
-    padding: 6px 18px;
-    border-radius: 100px;
-    margin-bottom: 28px;
-  }
-
-  .intro h1 {
-    font-size: clamp(34px, 5.5vw, 58px);
-    font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-    color: var(--nebula-blue);
-    margin-bottom: 20px;
-  }
-
+  .intro-tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nebula-blue); background: var(--nebula-pop); padding: 6px 18px; border-radius: 100px; margin-bottom: 28px; }
+  .intro h1 { font-size: clamp(34px, 5.5vw, 58px); font-weight: 800; line-height: 1.08; color: var(--nebula-blue); margin-bottom: 20px; }
   .intro h1 span { color: var(--nebula-forest); }
-
-  .intro p {
-    font-size: 16px;
-    color: var(--nebula-slate);
-    line-height: 1.7;
-    max-width: 520px;
-    margin: 0 auto 36px;
-  }
-
-  .pillars-row {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 24px;
-  }
-
-  .pillar-chip {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--white);
-    border: 1.5px solid var(--nebula-mint);
-    padding: 8px 18px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--nebula-blue);
-  }
-
+  .intro p { font-size: 16px; color: var(--nebula-slate); line-height: 1.7; max-width: 520px; margin: 0 auto 36px; }
+  .pillars-row, .tier-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .pillar-chip, .tier-chip { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--nebula-mint); padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--nebula-blue); }
+  .tier-chip { border-color: var(--nebula-silver); border-radius: 8px; color: var(--nebula-slate); font-size: 11px; padding: 7px 14px; }
   .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
-
-  .tier-row {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 48px;
-  }
-
-  .tier-chip {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    background: var(--white);
-    border: 1.5px solid var(--nebula-silver);
-    padding: 7px 14px;
-    border-radius: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--nebula-slate);
-  }
-
-  .tier-num {
-    width: 18px; height: 18px;
-    border-radius: 50%;
-    background: var(--nebula-blue);
-    color: white;
-    font-size: 10px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .btn-start {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--nebula-blue);
-    color: var(--white);
-    font-family: var(--font);
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.04em;
-    padding: 16px 40px;
-    border-radius: 100px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 4px 24px rgba(49,58,76,0.25);
-  }
-
-  .btn-start:hover {
-    background: var(--nebula-overlay);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(49,58,76,0.35);
-  }
-
-  /* ─── PROGRESS ─── */
+  .tier-num { width: 18px; height: 18px; border-radius: 50%; background: var(--nebula-blue); color: white; font-size: 10px; display: flex; align-items: center; justify-content: center; }
+  .btn-start { display: inline-flex; align-items: center; gap: 10px; background: var(--nebula-blue); color: var(--white); font-weight: 700; font-size: 14px; padding: 16px 40px; border-radius: 100px; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 24px rgba(49,58,76,0.25); }
+  .btn-start:hover { transform: translateY(-2px); background: #3C4456; }
   .progress-wrap { margin-bottom: 40px; }
-
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  .progress-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--nebula-slate);
-  }
-
-  .progress-count {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--nebula-forest);
-  }
-
-  .progress-track {
-    height: 4px;
-    background: var(--nebula-silver);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--nebula-forest), var(--nebula-pop));
-    border-radius: 10px;
-    transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  /* ─── QUESTION CARD ─── */
-  .question-card, .email-card {
-    background: var(--white);
-    border: 1.5px solid var(--nebula-silver);
-    border-left: 4px solid var(--nebula-pop);
-    border-radius: var(--radius);
-    padding: 40px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 16px rgba(49,58,76,0.07);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-  }
-
-  .question-card.visible, .email-card.visible { opacity: 1; transform: translateY(0); }
-
-  .q-pillar {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .q-number {
-    font-size: 12px;
-    color: var(--nebula-slate);
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  .q-text {
-    font-size: clamp(17px, 2.5vw, 21px);
-    font-weight: 700;
-    line-height: 1.35;
-    color: var(--nebula-blue);
-    margin-bottom: 28px;
-    letter-spacing: -0.01em;
-  }
-
-  /* ─── CONTACT INPUTS ─── */
-  .email-input {
-    width: 100%;
-    padding: 16px;
-    border-radius: 12px;
-    border: 1.5px solid var(--nebula-silver);
-    font-size: 16px;
-    margin-bottom: 12px;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .email-input:focus { border-color: var(--nebula-forest); }
-
-  /* ─── OPTIONS ─── */
-  .options { display: flex; flex-direction: column; gap: 10px; }
-
-  .option {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    background: var(--white);
-    border: 1.5px solid var(--nebula-silver);
-    border-radius: 12px;
-    padding: 16px 18px;
-    cursor: pointer;
-    transition: border-color 0.18s, background 0.18s, transform 0.12s;
-    text-align: left;
-    width: 100%;
-  }
-
-  .option:hover {
-    border-color: var(--nebula-mint);
-    background: var(--nebula-mist);
-    transform: translateX(3px);
-  }
-
-  .option.selected {
-    border-color: var(--nebula-forest);
-    background: var(--nebula-mist);
-  }
-
-  .option-indicator {
-    width: 20px; height: 20px; min-width: 20px;
-    border-radius: 50%;
-    border: 2px solid var(--nebula-silver);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1px;
-    transition: border-color 0.18s, background 0.18s;
-    flex-shrink: 0;
-  }
-
-  .option.selected .option-indicator {
-    border-color: var(--nebula-forest);
-    background: var(--nebula-forest);
-  }
-
-  .option-indicator svg { display: none; }
-  .option.selected .option-indicator svg { display: block; }
-
-  .option-content { flex: 1; }
-
-  .option-label {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.55;
-    color: var(--nebula-blue);
-  }
-
-  .option.selected .option-label { font-weight: 600; }
-
-  /* ─── NAV ─── */
-  .nav-buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-  }
-
-  .btn-nav {
-    font-family: var(--font);
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    padding: 13px 28px;
-    border-radius: 100px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.18s;
-  }
-
-  .btn-back {
-    background: transparent;
-    color: var(--nebula-slate);
-    border: 1.5px solid var(--nebula-silver);
-  }
-
-  .btn-back:hover { border-color: var(--nebula-slate); color: var(--nebula-blue); }
-
-  .btn-next {
-    background: var(--nebula-blue);
-    color: var(--white);
-    box-shadow: 0 4px 16px rgba(49,58,76,0.2);
-  }
-
-  .btn-next:hover:not(:disabled) {
-    background: var(--nebula-overlay);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 24px rgba(49,58,76,0.3);
-  }
-
-  .btn-next:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
-
-  /* ─── RESULTS ─── */
-  .results {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.45s ease, transform 0.45s ease;
-  }
-
-  .results.visible { opacity: 1; transform: translateY(0); }
-
-  .result-hero {
-    background: var(--nebula-blue);
-    border-radius: var(--radius);
-    padding: 52px 40px 44px;
-    text-align: center;
-    margin-bottom: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .result-tier-label {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--nebula-pop);
-    margin-bottom: 10px;
-  }
-
-  .result-tier-name {
-    font-size: clamp(38px, 6vw, 58px);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .result-divider {
-    width: 48px; height: 3px;
-    background: var(--nebula-pop);
-    border-radius: 2px;
-    margin: 16px auto 20px;
-  }
-
-  .result-subtitle {
-    font-size: 15px;
-    color: var(--nebula-mint);
-    max-width: 500px;
-    margin: 0 auto 28px;
-    line-height: 1.7;
-  }
-
-  .result-score-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 100px;
-    padding: 10px 24px;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--white);
-    position: relative;
-    z-index: 1;
-  }
-
-  .score-star { color: var(--nebula-pop); }
-
-  .tier-legend {
-    background: var(--white);
-    border: 1.5px solid var(--nebula-silver);
-    border-radius: var(--radius);
-    padding: 24px 28px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 12px rgba(49,58,76,0.06);
-  }
-
-  .section-label {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--nebula-slate);
-    margin-bottom: 16px;
-  }
-
-  .tier-legend-items {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .tier-legend-item {
-    flex: 1;
-    min-width: 110px;
-    background: var(--nebula-mist);
-    border: 1.5px solid var(--nebula-mint);
-    border-radius: 10px;
-    padding: 12px 14px;
-    text-align: center;
-  }
-
-  .tier-legend-item.active {
-    background: var(--nebula-blue);
-    border-color: var(--nebula-blue);
-  }
-
-  .tier-legend-num {
-    font-size: 10px;
-    font-weight: 800;
-    color: var(--nebula-sage);
-    margin-bottom: 4px;
-    letter-spacing: 0.05em;
-  }
-
-  .tier-legend-item.active .tier-legend-num { color: var(--nebula-pop); }
-
-  .tier-legend-name {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--nebula-blue);
-  }
-
-  .tier-legend-item.active .tier-legend-name { color: var(--white); }
-
-  .breakdown-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-
-  .pillar-card {
-    background: var(--white);
-    border: 1.5px solid var(--nebula-silver);
-    border-radius: var(--radius);
-    padding: 24px;
-    box-shadow: 0 2px 12px rgba(49,58,76,0.06);
-    border-top: 4px solid var(--nebula-mint);
-  }
-
-  .pillar-card-name {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--nebula-slate);
-    margin-bottom: 10px;
-  }
-
-  .pillar-card-score {
-    font-size: 34px;
-    font-weight: 800;
-    color: var(--nebula-blue);
-    letter-spacing: -0.03em;
-    margin-bottom: 12px;
-    line-height: 1;
-  }
-
-  .pillar-card-score span { font-size: 15px; font-weight: 400; color: var(--nebula-slate); }
-
-  .pillar-track {
-    height: 5px;
-    background: var(--nebula-silver);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .pillar-fill {
-    height: 100%;
-    border-radius: 10px;
-    transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;
-  }
-
-  .pillar-status {
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 10px;
-  }
-
-  .recs-card {
-    background: var(--white);
-    border: 1.5px solid var(--nebula-silver);
-    border-left: 4px solid var(--nebula-pop);
-    border-radius: var(--radius);
-    padding: 32px 36px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 12px rgba(49,58,76,0.06);
-  }
-
-  .rec-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-
-  .rec-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--nebula-blue);
-  }
-
-  .rec-num {
-    width: 24px; height: 24px; min-width: 24px;
-    border-radius: 6px;
-    background: var(--nebula-blue);
-    color: var(--white);
-    font-size: 11px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1px;
-  }
-
-  .btn-restart {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    background: transparent;
-    color: var(--nebula-slate);
-    border: 1.5px solid var(--nebula-silver);
-    font-family: var(--font);
-    font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 0.04em;
-    padding: 16px;
-    border-radius: 100px;
-    cursor: pointer;
-    transition: all 0.18s;
-  }
-
-  .btn-restart:hover { border-color: var(--nebula-blue); color: var(--nebula-blue); }
-
+  .progress-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .progress-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--nebula-slate); }
+  .progress-track { height: 4px; background: var(--nebula-silver); border-radius: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--nebula-forest), var(--nebula-pop)); transition: width 0.5s ease; }
+  .question-card, .email-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-left: 4px solid var(--nebula-pop); border-radius: var(--radius); padding: 40px; margin-bottom: 20px; box-shadow: 0 2px 16px rgba(49,58,76,0.07); }
+  .q-pillar { font-size: 10px; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; }
+  .q-text { font-size: clamp(17px, 2.5vw, 21px); font-weight: 700; color: var(--nebula-blue); margin-bottom: 28px; }
+  .email-input { width: 100%; padding: 16px; border-radius: 12px; border: 1.5px solid var(--nebula-silver); font-size: 16px; margin-bottom: 12px; outline: none; }
+  .option { display: flex; align-items: flex-start; gap: 14px; background: var(--white); border: 1.5px solid var(--nebula-silver); border-radius: 12px; padding: 16px 18px; cursor: pointer; transition: 0.18s; text-align: left; width: 100%; margin-bottom: 10px; }
+  .option:hover, .option.selected { border-color: var(--nebula-forest); background: var(--nebula-mist); }
+  .option-indicator { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--nebula-silver); flex-shrink: 0; }
+  .option.selected .option-indicator { background: var(--nebula-forest); border-color: var(--nebula-forest); }
+  .nav-buttons { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+  .btn-nav { font-weight: 700; font-size: 13px; padding: 13px 28px; border-radius: 100px; border: none; cursor: pointer; }
+  .btn-back { background: transparent; color: var(--nebula-slate); border: 1.5px solid var(--nebula-silver); }
+  .btn-next { background: var(--nebula-blue); color: white; }
+  .btn-next:disabled { opacity: 0.3; }
+  .results { opacity: 0; transition: 0.45s ease; }
+  .results.visible { opacity: 1; }
+  .result-hero { background: var(--nebula-blue); border-radius: var(--radius); padding: 52px 40px; text-align: center; color: white; margin-bottom: 16px; }
+  .breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 16px; }
+  .pillar-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-radius: var(--radius); padding: 24px; border-top: 4px solid var(--nebula-mint); }
+  .recs-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-left: 4px solid var(--nebula-pop); padding: 32px; border-radius: var(--radius); margin-bottom: 16px; }
+  .rec-list { list-style: none; padding: 0; }
+  .rec-list li { display: flex; gap: 14px; margin-bottom: 12px; font-size: 14px; }
+  .rec-num { min-width: 24px; height: 24px; background: var(--nebula-blue); color: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; }
   .hidden { display: none !important; }
-
-  @media (max-width: 600px) {
-    #nebula-quiz-container { padding: 16px 8px; }
-    .question-card { padding: 26px 20px; }
-    .recs-card { padding: 24px 20px; }
-  }
 </style>
 </head>
 <body>
 
 <div id="nebula-quiz-container">
-  <form id="MC32QKQP6N55BIRPJ5OBMZ4JHTYM" data-uma-forms="true">
+  <form id="MC32QKQP6N55BIRPJ5OBMZ4JHTYM" data-uma-forms="true" onsubmit="event.preventDefault();">
 
     <div id="intro" class="intro">
       <div class="intro-tag">Assessment Tool</div>
       <h1>Are you ready<br>for <span>Agentforce?</span></h1>
       <p>Answer 9 questions to get an honest picture of your organisation's AI readiness — across data, strategy, and your people.</p>
-
       <div class="pillars-row">
-        <div class="pillar-chip"><div class="chip-dot" style="background:#3B824B"></div> Data & Technology</div>
-        <div class="pillar-chip"><div class="chip-dot" style="background:#313A4C"></div> Strategy & Governance</div>
+        <div class="pillar-chip"><div class="chip-dot" style="background:#3B824B"></div> Data & Tech</div>
+        <div class="pillar-chip"><div class="chip-dot" style="background:#313A4C"></div> Strategy & Gov</div>
         <div class="pillar-chip"><div class="chip-dot" style="background:#BAD532"></div> People & Adoption</div>
       </div>
-
-      <div class="tier-row">
-        <div class="tier-chip"><div class="tier-num">1</div> Exploring</div>
-        <div class="tier-chip"><div class="tier-num">2</div> Gliding</div>
-        <div class="tier-chip"><div class="tier-num">3</div> Propelling</div>
-        <div class="tier-chip"><div class="tier-num">4</div> Cruising</div>
-        <div class="tier-chip"><div class="tier-num">5</div> Soaring</div>
-      </div>
-
-      <button type="button" class="btn-start" onclick="startQuiz()">
-        Begin Assessment
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
+      <button type="button" class="btn-start" onclick="startQuiz()">Begin Assessment</button>
     </div>
 
     <div id="quiz" class="hidden">
       <div class="progress-wrap">
-        <div class="progress-meta">
-          <span class="progress-label">Progress</span>
-          <span class="progress-count" id="progress-count">1 / 9</span>
-        </div>
-        <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+        <div class="progress-meta"><span class="progress-label">Progress</span><span id="progress-count">1 / 9</span></div>
+        <div class="progress-track"><div id="progress-fill" class="progress-fill" style="width:0%"></div></div>
       </div>
-
       <div id="question-card" class="question-card">
-        <div class="q-pillar" id="q-pillar"></div>
-        <div class="q-number" id="q-number"></div>
-        <div class="q-text" id="q-text"></div>
-        <div class="options" id="options-list"></div>
+        <div id="q-pillar" class="q-pillar"></div>
+        <div id="q-text" class="q-text"></div>
+        <div id="options-list" class="options"></div>
       </div>
-
       <div class="nav-buttons">
-        <button type="button" class="btn-nav btn-back" id="btn-back" onclick="goBack()">← Back</button>
-        <button type="button" class="btn-nav btn-next" id="btn-next" onclick="goNext()" disabled>Next →</button>
+        <button type="button" id="btn-back" class="btn-nav btn-back" onclick="goBack()">← Back</button>
+        <button type="button" id="btn-next" class="btn-nav btn-next" onclick="goNext()" disabled>Next →</button>
       </div>
     </div>
 
     <div id="email-step" class="email-card hidden">
       <div class="q-pillar" style="color: var(--nebula-blue)">Final Step</div>
       <div class="q-text">Where should we send your results?</div>
-      
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 4px;">
         <input type="text" id="first-name" name="FirstName" class="email-input" placeholder="First Name" required>
         <input type="text" id="last-name" name="LastName" class="email-input" placeholder="Last Name" required>
@@ -656,249 +114,110 @@
       <input type="hidden" name="AI_Q7_Employee_Sentiment" id="hid_q7">
       <input type="hidden" name="AI_Q8_Technology_Piloting" id="hid_q8">
       <input type="hidden" name="AI_Q9_Output_Trust" id="hid_q9">
-      
       <input type="hidden" name="AI_Data_Technology" id="hid_score_data">
       <input type="hidden" name="AI_Strategy_Governance" id="hid_score_strat">
       <input type="hidden" name="AI_People_Adoption" id="hid_score_people">
       <input type="hidden" name="AI_Overall_Score" id="hid_score_total">
       <input type="hidden" name="AI_Level" id="hid_tier_name">
 
-      <button type="button" class="btn-start" onclick="handleEmailSubmit()">
-        Get My Results
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
+      <button type="button" class="btn-start" onclick="handleEmailSubmit()">Get My Results</button>
     </div>
 
     <div id="results" class="results hidden"></div>
-
   </form>
 </div>
-<script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
+
 <script>
 const QUESTIONS = [
-  {
-    pillar: "Data & Technology", pillarColor: "#3B824B", pillarKey: "data",
-    text: "How would you describe the state of your organisation's data right now?",
-    options: [
-      { label: "Data lives in spreadsheets, inboxes, and separate systems with no single source of truth.", score: 1 },
-      { label: "We have data in centralised tools but it's often incomplete, inconsistent, or out of date.", score: 2 },
-      { label: "Our data is mostly clean and centralised, though some gaps or silos remain.", score: 3 },
-      { label: "We have high-quality, consistent data in a unified system, and someone actively governs it.", score: 4 },
-    ]
-  },
-  {
-    pillar: "Data & Technology", pillarColor: "#3B824B", pillarKey: "data",
-    text: "When your teams need information to make a decision, what typically happens?",
-    options: [
-      { label: "They search manually across different apps, documents, or ask a colleague who 'just knows'.", score: 1 },
-      { label: "They can usually find it, but it takes time and often involves jumping between multiple tools.", score: 2 },
-      { label: "A dashboard or report gives them most of what they need, with occasional gaps.", score: 3 },
-      { label: "The right information surfaces automatically in context — decisions are data-driven by default.", score: 4 },
-    ]
-  },
-  {
-    pillar: "Data & Technology", pillarColor: "#3B824B", pillarKey: "data",
-    text: "How connected are your core business systems (e.g. CRM, finance, operations, HR)?",
-    options: [
-      { label: "Largely separate — syncing between them is manual or doesn't happen consistently.", score: 1 },
-      { label: "Some systems are integrated but key data still has to be re-entered or exported manually.", score: 2 },
-      { label: "Most systems talk to each other via integrations, though some manual work remains.", score: 3 },
-      { label: "Our systems are fully integrated with clean data flows — adding a new tool is straightforward.", score: 4 },
-    ]
-  },
-  {
-    pillar: "Strategy & Governance", pillarColor: "#313A4C", pillarKey: "strategy",
-    text: "How did AI become a priority in your organisation?",
-    options: [
-      { label: "Honestly, it's mostly pressure — competitors are doing it and leadership doesn't want to be left behind.", score: 1 },
-      { label: "There's genuine interest but no clear strategy yet — it feels more reactive than planned.", score: 2 },
-      { label: "We have a roadmap and identified use cases, though it's still being formalised.", score: 3 },
-      { label: "AI is tied to specific business objectives, with measurable KPIs and executive sponsorship in place.", score: 4 },
-    ]
-  },
-  {
-    pillar: "Strategy & Governance", pillarColor: "#313A4C", pillarKey: "strategy",
-    text: "Before deploying an AI tool or initiative, what does your process look like?",
-    options: [
-      { label: "We move fast — tools get adopted by teams without much central oversight or evaluation.", score: 1 },
-      { label: "There's informal review but no consistent framework for assessing risk, ROI, or fit.", score: 2 },
-      { label: "We evaluate tools against defined criteria, though governance policies are still maturing.", score: 3 },
-      { label: "Every initiative has clear success metrics, risk assessment, and governance sign-off before launch.", score: 4 },
-    ]
-  },
-  {
-    pillar: "Strategy & Governance", pillarColor: "#313A4C", pillarKey: "strategy",
-    text: "How does your organisation handle data privacy and compliance obligations (e.g. GDPR)?",
-    options: [
-      { label: "We haven't fully mapped what regulations apply to us — it's a gap we know we need to close.", score: 1 },
-      { label: "We're broadly compliant but policies aren't fully documented or consistently enforced.", score: 2 },
-      { label: "We have clear policies and most teams follow them, with occasional gaps in enforcement.", score: 3 },
-      { label: "Compliance is fully embedded — consent, data handling, and AI ethics are all actively governed.", score: 4 },
-    ]
-  },
-  {
-    pillar: "People & Adoption", pillarColor: "#8A9E00", pillarKey: "people",
-    text: "How do most employees in your organisation currently feel about AI?",
-    options: [
-      { label: "Largely anxious or resistant — concerns about job security haven't been addressed openly.", score: 1 },
-      { label: "Mixed — some are enthusiastic but there's no shared understanding of what AI means for roles.", score: 2 },
-      { label: "Generally positive — leadership has communicated clearly and most people are open to change.", score: 3 },
-      { label: "Genuinely excited — people are actively experimenting and there's a real culture of curiosity.", score: 4 },
-    ]
-  },
-  {
-    pillar: "People & Adoption", pillarColor: "#8A9E00", pillarKey: "people",
-    text: "When your organisation has piloted new technology in the past, what tends to happen?",
-    options: [
-      { label: "Pilots often fade out — adoption is patchy and we rarely capture what worked or why.", score: 1 },
-      { label: "Some pilots succeed but scaling them is difficult without a clear process or sponsorship.", score: 2 },
-      { label: "We learn from pilots and usually know what to do differently, even if scaling takes time.", score: 3 },
-      { label: "We have a repeatable model for piloting, measuring impact, and scaling what delivers value.", score: 4 },
-    ]
-  },
-  {
-    pillar: "People & Adoption", pillarColor: "#8A9E00", pillarKey: "people",
-    text: "If an AI tool gave your team a recommendation or generated output today, what would happen?",
-    options: [
-      { label: "People would be sceptical and want to verify everything manually — trust in AI is very low.", score: 1 },
-      { label: "Some would engage with it, others ignore it — there's no shared approach or guidance.", score: 2 },
-      { label: "Most would use it as a strong starting point, applying judgement for anything high-stakes.", score: 3 },
-      { label: "Teams have clear guidelines on when to trust AI outputs, and confidence is high for defined use cases.", score: 4 },
-    ]
-  },
+  { pillar: "Data & Technology", pillarColor: "#3B824B", pillarKey: "data", text: "How is your data organized?", options: [{ label: "Spreadsheets & Silos", score: 1 }, { label: "Centralized but messy", score: 2 }, { label: "Mostly clean", score: 3 }, { label: "Fully governed", score: 4 }] },
+  { pillar: "Data & Technology", pillarColor: "#3B824B", pillarKey: "data", text: "How do teams find info?", options: [{ label: "Manual search", score: 1 }, { label: "Usually find it", score: 2 }, { label: "Dashboards", score: 3 }, { label: "Surfaced in context", score: 4 }] },
+  { pillar: "Data & Technology", pillarColor: "#3B824B", pillarKey: "data", text: "Connectivity level?", options: [{ label: "Largely separate", score: 1 }, { label: "Some integration", score: 2 }, { label: "Integrated mostly", score: 3 }, { label: "Fully automated", score: 4 }] },
+  { pillar: "Strategy & Governance", pillarColor: "#313A4C", pillarKey: "strategy", text: "AI Priority Origin?", options: [{ label: "Competitor pressure", score: 1 }, { label: "Genuine interest", score: 2 }, { label: "Roadmap exists", score: 3 }, { label: "KPI driven", score: 4 }] },
+  { pillar: "Strategy & Governance", pillarColor: "#313A4C", pillarKey: "strategy", text: "Governance process?", options: [{ label: "No oversight", score: 1 }, { label: "Informal review", score: 2 }, { label: "Defined criteria", score: 3 }, { label: "Sign-off required", score: 4 }] },
+  { pillar: "Strategy & Governance", pillarColor: "#313A4C", pillarKey: "strategy", text: "Compliance handling?", options: [{ label: "Not mapped", score: 1 }, { label: "Broadly compliant", score: 2 }, { label: "Clear policies", score: 3 }, { label: "Fully embedded", score: 4 }] },
+  { pillar: "People & Adoption", pillarColor: "#BAD532", pillarKey: "people", text: "Workforce sentiment?", options: [{ label: "Anxious", score: 1 }, { label: "Mixed", score: 2 }, { label: "Positive", score: 3 }, { label: "Genuinely excited", score: 4 }] },
+  { pillar: "People & Adoption", pillarColor: "#BAD532", pillarKey: "people", text: "Pilot history?", options: [{ label: "Often fade", score: 1 }, { label: "Difficult to scale", score: 2 }, { label: "Lessons learned", score: 3 }, { label: "Repeatable model", score: 4 }] },
+  { pillar: "People & Adoption", pillarColor: "#BAD532", pillarKey: "people", text: "Trust in AI output?", options: [{ label: "Skeptical", score: 1 }, { label: "Varies", score: 2 }, { label: "Strong start", score: 3 }, { label: "High confidence", score: 4 }] }
 ];
 
 const TIERS = [
-  { min: 9,  max: 14, num: 1, name: "Exploring", color: "#A63D2F", subtitle: "AI is on your radar, but the foundations needed to deploy it effectively aren't in place yet.", recs: ["Start with your data.", "Run focused discovery.", "Address team anxieties.", "Assign a readiness owner."] },
-  { min: 15, max: 20, num: 2, name: "Gliding", color: "#C8890A", subtitle: "You've got intent, but gaps in data or governance will limit initiatives.", recs: ["Prioritise data quality.", "Formalise governance.", "Invest in upskilling.", "Run a scoped pilot."] },
-  { min: 21, max: 27, num: 3, name: "Propelling", color: "#3B824B", subtitle: "Solid foundations and the right conditions for AI value.", recs: ["Prioritise impact.", "Build a scaling framework.", "Develop ethics practices.", "Connect AI across functions."] },
-  { min: 28, max: 33, num: 4, name: "Cruising", color: "#0D5C22", subtitle: "Strong foundations and an engaged workforce.", recs: ["Explore cross-functional workflows.", "Build internal capability.", "Invest in bias auditing.", "Position capabilities visibly."] },
-  { min: 34, max: 36, num: 5, name: "Soaring", color: "#313A4C", subtitle: "Data, strategy, and people are all aligned.", recs: ["Explore advanced agent workflows.", "Share your internal playbook.", "Treat readiness as ongoing.", "Package maturity as a differentiator."] }
+  { min: 9, max: 14, num: 1, name: "Exploring", color: "#A63D2F", recs: ["Identify data gaps.", "Build trust."] },
+  { min: 15, max: 20, num: 2, name: "Gliding", color: "#C8890A", recs: ["Prioritize quality.", "Scoped pilot."] },
+  { min: 21, max: 27, num: 3, name: "Propelling", color: "#3B824B", recs: ["Scale pilots.", "Ethics focus."] },
+  { min: 28, max: 33, num: 4, name: "Cruising", color: "#0D5C22", recs: ["Cross-functional workflows.", "Audit systems."] },
+  { min: 34, max: 36, num: 5, name: "Soaring", color: "#313A4C", recs: ["Advanced agents.", "Package maturity."] }
 ];
 
-let currentQ = 0;
-let answers  = {};
+let currentQ = 0; let answers = {};
 
-function startQuiz() {
-  document.getElementById('intro').classList.add('hidden');
-  document.getElementById('quiz').classList.remove('hidden');
-  renderQuestion();
-}
+function startQuiz() { document.getElementById('intro').classList.add('hidden'); document.getElementById('quiz').classList.remove('hidden'); renderQuestion(); }
 
 function renderQuestion() {
-  const q    = QUESTIONS[currentQ];
-  const card = document.getElementById('question-card');
-  card.classList.remove('visible');
+  const q = QUESTIONS[currentQ];
+  const card = document.getElementById('question-card'); card.classList.remove('visible');
   setTimeout(() => {
-    document.getElementById('q-pillar').textContent  = q.pillar;
-    document.getElementById('q-pillar').style.color  = q.pillarColor;
-    document.getElementById('q-number').textContent  = `Question ${currentQ + 1} of ${QUESTIONS.length}`;
-    document.getElementById('q-text').textContent    = q.text;
-    const list = document.getElementById('options-list');
-    list.innerHTML = '';
+    document.getElementById('q-pillar').textContent = q.pillar; document.getElementById('q-pillar').style.color = q.pillarColor;
+    document.getElementById('q-text').textContent = q.text;
+    const list = document.getElementById('options-list'); list.innerHTML = '';
     q.options.forEach((opt, i) => {
-      const div = document.createElement('div');
-      div.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
+      const div = document.createElement('div'); div.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
       div.onclick = () => selectOption(i);
-      div.innerHTML = `<div class="option-indicator"><svg width="11" height="11" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div><div class="option-content"><div class="option-label">${opt.label}</div></div>`;
+      div.innerHTML = `<div class="option-indicator"></div><div class="option-label">${opt.label}</div>`;
       list.appendChild(div);
     });
-    const pct = (currentQ / QUESTIONS.length) * 100;
-    document.getElementById('progress-fill').style.width  = pct + '%';
-    document.getElementById('progress-count').textContent = `${currentQ + 1} / ${QUESTIONS.length}`;
+    document.getElementById('progress-count').textContent = `${currentQ+1} / 9`;
+    document.getElementById('progress-fill').style.width = ((currentQ / 9) * 100) + '%';
     document.getElementById('btn-back').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
-    document.getElementById('btn-next').disabled         = answers[currentQ] === undefined;
-    document.getElementById('btn-next').textContent      = currentQ === QUESTIONS.length - 1 ? 'Finish →' : 'Next →';
-    card.style.borderLeftColor = q.pillarColor;
+    document.getElementById('btn-next').disabled = answers[currentQ] === undefined;
     card.classList.add('visible');
   }, 160);
 }
 
-function selectOption(i) {
-  answers[currentQ] = i;
-  document.querySelectorAll('.option').forEach((el, idx) => el.classList.toggle('selected', idx === i));
-  document.getElementById('btn-next').disabled = false;
-  setTimeout(() => goNext(), 520);
-}
+function selectOption(i) { answers[currentQ] = i; renderQuestion(); setTimeout(() => goNext(), 500); }
 
 function goNext() {
   if (answers[currentQ] === undefined) return;
-  if (currentQ < QUESTIONS.length - 1) { currentQ++; renderQuestion(); }
-  else {
-    document.getElementById('quiz').classList.add('hidden');
-    document.getElementById('email-step').classList.remove('hidden');
-    document.getElementById('email-step').classList.add('visible');
-  }
+  if (currentQ < 8) { currentQ++; renderQuestion(); }
+  else { document.getElementById('quiz').classList.add('hidden'); document.getElementById('email-step').classList.remove('hidden'); }
 }
 
 function goBack() { if (currentQ > 0) { currentQ--; renderQuestion(); } }
 
 function handleEmailSubmit() {
-  const email = document.getElementById('user-email').value;
-  const fname = document.getElementById('first-name').value;
-  const lname = document.getElementById('last-name').value;
-  const comp  = document.getElementById('company').value;
-
-  if (email && fname && lname && comp && email.includes('@')) {
+  const emailInput = document.getElementById('user-email');
+  if (emailInput.checkValidity() && document.getElementById('first-name').value) {
+    // TRIGGER SALESFORCE SUBMIT
+    if (typeof SFDCFormHandler !== 'undefined') {
+      SFDCFormHandler.submit('MC32QKQP6N55BIRPJ5OBMZ4JHTYM');
+      console.log("Submitting to Salesforce...");
+    }
     showResults();
-  } else {
-    alert("Please fill in all contact details.");
-  }
+  } else { emailInput.reportValidity(); }
 }
 
 function showResults() {
   document.getElementById('email-step').classList.add('hidden');
-  const resultsEl = document.getElementById('results');
-  resultsEl.classList.remove('hidden');
-
-  const pillarScores = {
-    data:     { score: 0, max: 12, label: 'Data & Technology', trackColor: '#3B824B' },
-    strategy: { score: 0, max: 12, label: 'Strategy & Governance', trackColor: '#313A4C' },
-    people:   { score: 0, max: 12, label: 'People & Adoption', trackColor: '#BAD532' },
-  };
-
-  // Populate hidden descriptive question fields
+  const resultsEl = document.getElementById('results'); resultsEl.classList.remove('hidden');
+  const pillarScores = { data: 0, strategy: 0, people: 0 };
+  
   QUESTIONS.forEach((q, i) => {
-    const selectedIdx = answers[i];
-    const fullText = q.options[selectedIdx].label;
-    document.getElementById(`hid_q${i+1}`).value = fullText;
-    pillarScores[q.pillarKey].score += q.options[selectedIdx].score;
+    const sel = answers[i]; document.getElementById(`hid_q${i+1}`).value = q.options[sel].label;
+    pillarScores[q.pillarKey] += q.options[sel].score;
   });
-
-  const total = Object.values(pillarScores).reduce((s, p) => s + p.score, 0);
-  const tier  = TIERS.find(t => total >= t.min && total <= t.max) || TIERS[TIERS.length - 1];
-
-  // Map scores to hidden fields
-  document.getElementById('hid_score_data').value = pillarScores.data.score;
-  document.getElementById('hid_score_strat').value = pillarScores.strategy.score;
-  document.getElementById('hid_score_people').value = pillarScores.people.score;
+  
+  const total = pillarScores.data + pillarScores.strategy + pillarScores.people;
+  const tier = TIERS.find(t => total >= t.min && total <= t.max) || TIERS[4];
+  
+  document.getElementById('hid_score_data').value = pillarScores.data;
+  document.getElementById('hid_score_strat').value = pillarScores.strategy;
+  document.getElementById('hid_score_people').value = pillarScores.people;
   document.getElementById('hid_score_total').value = total;
   document.getElementById('hid_tier_name').value = tier.name;
 
-  const tierLegendHTML = TIERS.map(t => `<div class="tier-legend-item ${t.num === tier.num ? 'active' : ''}"><div class="tier-legend-num">Level ${t.num}</div><div class="tier-legend-name">${t.name}</div></div>`).join('');
-
-  const pillarCardsHTML = Object.entries(pillarScores).map(([key, ps]) => {
-    const ppct = Math.round((ps.score / ps.max) * 100);
-    const statusLabel = ppct >= 75 ? '✓ Strong' : ppct >= 50 ? '↗ Developing' : '⚠ Needs focus';
-    const statusColor = ppct >= 75 ? '#3B824B' : ppct >= 50 ? '#C8890A' : '#A63D2F';
-    return `<div class="pillar-card" style="border-top-color:${ps.trackColor}"><div class="pillar-card-name">${ps.label}</div><div class="pillar-card-score">${ps.score}<span> / ${ps.max}</span></div><div class="pillar-track"><div class="pillar-fill" style="width:0%;background:${ps.trackColor}" data-pct="${ppct}"></div></div><div class="pillar-status" style="color:${statusColor}">${statusLabel}</div></div>`;
-  }).join('');
-
-  resultsEl.innerHTML = `<div class="result-hero"><div class="result-tier-label">Your AI Readiness Level</div><div class="result-tier-name">${tier.name}</div><div class="result-divider"></div><p class="result-subtitle">${tier.subtitle}</p><div class="result-score-chip"><span class="score-star">★</span>Overall score: ${total} / 36</div></div><div class="tier-legend"><div class="section-label">The five levels</div><div class="tier-legend-items">${tierLegendHTML}</div></div><div class="breakdown-grid">${pillarCardsHTML}</div><div class="recs-card"><div class="section-label">Where to focus next</div><ul class="rec-list">${tier.recs.map((r, i) => `<li><div class="rec-num">${i + 1}</div>${r}</li>`).join('')}</ul></div><button type="button" class="btn-restart" onclick="restartQuiz()"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>Retake Assessment</button>`;
-
-  setTimeout(() => {
-    resultsEl.classList.add('visible');
-    resultsEl.querySelectorAll('.pillar-fill').forEach(el => { el.style.width = el.dataset.pct + '%'; });
-  }, 120);
-}
-
-function restartQuiz() {
-  currentQ = 0; answers = {};
-  const r = document.getElementById('results');
-  r.classList.remove('visible'); r.classList.add('hidden');
-  document.getElementById('intro').classList.remove('hidden');
-  document.getElementById('email-step').classList.add('hidden');
+  resultsEl.innerHTML = `<div class="result-hero"><h2>Level: ${tier.name}</h2><p>Total Score: ${total}/36</p></div><div class="recs-card"><h3>Focus Next:</h3><ul>${tier.recs.map(r => `<li>${r}</li>`).join('')}</ul></div>`;
+  setTimeout(() => resultsEl.classList.add('visible'), 100);
 }
 </script>
+<script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
 </body>
 </html>
