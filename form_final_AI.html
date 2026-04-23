@@ -70,7 +70,7 @@
     <div id="intro" class="intro">
       <div class="intro-tag">Assessment Tool</div>
       <h1>Are you ready<br>for <span>Agentforce?</span></h1>
-      <p>Answer 9 questions to get an honest picture of your organisation's AI readiness — across data, strategy, and your people.</p>
+      <p>Answer 9 questions to get an honest picture of your organisation's AI readiness.</p>
       <div class="pillars-row">
         <div class="pillar-chip"><div class="chip-dot" style="background:#3B824B"></div> Data & Tech</div>
         <div class="pillar-chip"><div class="chip-dot" style="background:#313A4C"></div> Strategy & Gov</div>
@@ -126,6 +126,8 @@
     <div id="results" class="results hidden"></div>
   </form>
 </div>
+
+<script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
 
 <script>
 const QUESTIONS = [
@@ -186,25 +188,27 @@ function goBack() { if (currentQ > 0) { currentQ--; renderQuestion(); } }
 function handleEmailSubmit() {
   const emailInput = document.getElementById('user-email');
   if (emailInput.checkValidity() && document.getElementById('first-name').value) {
+    
+    // PREPARE HIDDEN FIELDS BEFORE SENDING
+    calculateAndPopulate();
+
     // TRIGGER SALESFORCE SUBMIT
     if (typeof SFDCFormHandler !== 'undefined') {
       SFDCFormHandler.submit('MC32QKQP6N55BIRPJ5OBMZ4JHTYM');
       console.log("Submitting to Salesforce...");
     }
-    showResults();
+    
+    showResultsUI();
   } else { emailInput.reportValidity(); }
 }
 
-function showResults() {
-  document.getElementById('email-step').classList.add('hidden');
-  const resultsEl = document.getElementById('results'); resultsEl.classList.remove('hidden');
+function calculateAndPopulate() {
   const pillarScores = { data: 0, strategy: 0, people: 0 };
-  
   QUESTIONS.forEach((q, i) => {
-    const sel = answers[i]; document.getElementById(`hid_q${i+1}`).value = q.options[sel].label;
+    const sel = answers[i]; 
+    document.getElementById(`hid_q${i+1}`).value = q.options[sel].label;
     pillarScores[q.pillarKey] += q.options[sel].score;
   });
-  
   const total = pillarScores.data + pillarScores.strategy + pillarScores.people;
   const tier = TIERS.find(t => total >= t.min && total <= t.max) || TIERS[4];
   
@@ -213,11 +217,28 @@ function showResults() {
   document.getElementById('hid_score_people').value = pillarScores.people;
   document.getElementById('hid_score_total').value = total;
   document.getElementById('hid_tier_name').value = tier.name;
+}
+
+function showResultsUI() {
+  document.getElementById('email-step').classList.add('hidden');
+  const resultsEl = document.getElementById('results'); 
+  resultsEl.classList.remove('hidden');
+  
+  // Re-calculate local for display
+  const total = parseInt(document.getElementById('hid_score_total').value);
+  const tier = TIERS.find(t => total >= t.min && total <= t.max) || TIERS[4];
 
   resultsEl.innerHTML = `<div class="result-hero"><h2>Level: ${tier.name}</h2><p>Total Score: ${total}/36</p></div><div class="recs-card"><h3>Focus Next:</h3><ul>${tier.recs.map(r => `<li>${r}</li>`).join('')}</ul></div>`;
   setTimeout(() => resultsEl.classList.add('visible'), 100);
 }
+
+function restartQuiz() {
+  currentQ = 0; answers = {};
+  const r = document.getElementById('results');
+  r.classList.remove('visible'); r.classList.add('hidden');
+  document.getElementById('intro').classList.remove('hidden');
+  document.getElementById('email-step').classList.add('hidden');
+}
 </script>
-<script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
 </body>
 </html>
