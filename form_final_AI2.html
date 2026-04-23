@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Readiness Assessment | Nebula Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --nebula-blue: #313A4C; --nebula-pop: #BAD532; --nebula-deep: #0D5C22;
+    --nebula-forest: #3B824B; --nebula-sage: #6FA578; --nebula-mint: #B2D4B8;
+    --nebula-mist: #F2F6E6; --nebula-silver: #E5E5E5; --nebula-slate: #707070;
+    --white: #FFFFFF; --font: 'Open Sans', sans-serif; --radius: 16px;
+  }
+  #nebula-quiz-container { color: var(--nebula-blue); font-family: var(--font); max-width: 800px; margin: 0 auto; padding: 24px; }
+  .intro { text-align: center; }
+  .intro h1 { font-size: clamp(34px, 5.5vw, 58px); font-weight: 800; line-height: 1.08; margin-bottom: 20px; }
+  .intro h1 span { color: var(--nebula-forest); }
+  .pillars-row, .tier-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .pillar-chip, .tier-chip { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--nebula-mint); padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+  .tier-chip { border-color: var(--nebula-silver); border-radius: 8px; color: var(--nebula-slate); font-size: 11px; padding: 7px 14px; }
+  .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .btn-start, .btn-submit { display: inline-flex; align-items: center; gap: 10px; background: var(--nebula-blue); color: white; font-weight: 700; padding: 16px 40px; border-radius: 100px; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 24px rgba(49,58,76,0.25); }
+  .progress-wrap { margin-bottom: 40px; }
+  .progress-track { height: 4px; background: var(--nebula-silver); border-radius: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--nebula-forest), var(--nebula-pop)); transition: width 0.5s ease; }
+  .question-card, .email-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-left: 4px solid var(--nebula-pop); border-radius: var(--radius); padding: 40px; margin-bottom: 20px; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
+  .q-text { font-size: 21px; font-weight: 700; margin-bottom: 28px; }
+  .option { display: flex; align-items: flex-start; gap: 14px; background: var(--white); border: 1.5px solid var(--nebula-silver); border-radius: 12px; padding: 16px 18px; cursor: pointer; transition: 0.18s; width: 100%; margin-bottom: 10px; }
+  .option:hover, .option.selected { border-color: var(--nebula-forest); background: var(--nebula-mist); }
+  .option-indicator { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--nebula-silver); flex-shrink: 0; }
+  .option.selected .option-indicator { background: var(--nebula-forest); border-color: var(--nebula-forest); }
+  .email-input { width: 100%; padding: 16px; border-radius: 12px; border: 1.5px solid var(--nebula-silver); font-size: 16px; margin-bottom: 12px; outline: none; }
+  
+  /* Results Styles Restored */
+  .results { opacity: 0; transition: 0.45s ease; }
+  .results.visible { opacity: 1; }
+  .result-hero { background: var(--nebula-blue); border-radius: var(--radius); padding: 52px 40px; text-align: center; color: white; margin-bottom: 16px; }
+  .result-tier-name { font-size: 58px; font-weight: 800; margin-bottom: 10px; }
+  .tier-legend { background: var(--white); border: 1.5px solid var(--nebula-silver); padding: 24px; border-radius: var(--radius); margin-bottom: 16px; }
+  .tier-legend-items { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tier-legend-item { flex: 1; background: var(--nebula-mist); padding: 12px; border-radius: 10px; text-align: center; font-size: 12px; border: 1px solid var(--nebula-mint); }
+  .tier-legend-item.active { background: var(--nebula-blue); color: white; border-color: var(--nebula-blue); }
+  .breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; }
+  .pillar-card { background: var(--white); border: 1.5px solid var(--nebula-silver); padding: 24px; border-radius: var(--radius); border-top: 4px solid var(--nebula-mint); }
+  .recs-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-left: 4px solid var(--nebula-pop); padding: 32px; border-radius: var(--radius); }
+  .rec-list { list-style: none; padding: 0; }
+  .rec-list li { display: flex; gap: 14px; margin-bottom: 12px; font-size: 14px; line-height: 1.6; }
+  .rec-num { min-width: 24px; height: 24px; background: var(--nebula-blue); color: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div id="nebula-quiz-container">
+  <form id="MC32QKQP6N55BIRPJ5OBMZ4JHTYM" data-uma-forms="true">
+
+    <div id="intro" class="intro">
+      <h1>Are you ready for <span>Agentforce?</span></h1>
+      <p style="margin-bottom:30px">Answer 9 questions to get an honest picture of your organisation's AI readiness.</p>
+      <div class="pillars-row">
+        <div class="pillar-chip"><div class="chip-dot" style="background:#3B824B"></div> Data & Tech</div>
+        <div class="pillar-chip"><div class="chip-dot" style="background:#313A4C"></div> Strategy & Gov</div>
+        <div class="pillar-chip"><div class="chip-dot" style="background:#BAD532"></div> People & Adoption</div>
+      </div>
+      <button type="button" class="btn-start" onclick="startQuiz()">Begin Assessment</button>
+    </div>
+
+    <div id="quiz" class="hidden">
+      <div class="progress-wrap">
+        <div class="progress-track"><div id="progress-fill" class="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div id="question-card" class="question-card">
+        <div id="q-pillar" style="font-size:10px; font-weight:800; text-transform:uppercase; margin-bottom:10px;"></div>
+        <div id="q-text" class="q-text"></div>
+        <div id="options-list" class="options"></div>
+      </div>
+      <div style="text-align:right">
+        <button type="button" id="btn-next" class="btn-submit" onclick="goNext()" disabled>Next →</button>
+      </div>
+    </div>
+
+    <div id="email-step" class="email-card hidden">
+      <div class="q-text">Where should we send your results?</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 4px;">
+        <input type="text" id="first-name" name="FirstName" class="email-input" placeholder="First Name" required>
+        <input type="text" id="last-name" name="LastName" class="email-input" placeholder="Last Name" required>
+      </div>
+      <input type="text" id="company" name="Company" class="email-input" placeholder="Company Name" required>
+      <input type="email" id="user-email" name="Email" class="email-input" placeholder="email@company.com" required>
+
+      <input type="hidden" name="AI_Q1_Data_State" id="hid_q1">
+      <input type="hidden" name="AI_Q2_Information_Access" id="hid_q2">
+      <input type="hidden" name="AI_Q3_System_Integration" id="hid_q3">
+      <input type="hidden" name="AI_Q4_Priority_Origin" id="hid_q4">
+      <input type="hidden" name="AI_Q5_Governance_Process" id="hid_q5">
+      <input type="hidden" name="AI_Q6_Data_Compliance" id="hid_q6">
+      <input type="hidden" name="AI_Q7_Employee_Sentiment" id="hid_q7">
+      <input type="hidden" name="AI_Q8_Technology_Piloting" id="hid_q8">
+      <input type="hidden" name="AI_Q9_Output_Trust" id="hid_q9">
+      <input type="hidden" name="AI_Data_Technology" id="hid_score_data">
+      <input type="hidden" name="AI_Strategy_Governance" id="hid_score_strat">
+      <input type="hidden" name="AI_People_Adoption" id="hid_score_people">
+      <input type="hidden" name="AI_Overall_Score" id="hid_score_total">
+      <input type="hidden" name="AI_Level" id="hid_tier_name">
+
+      <button type="submit" class="btn-submit">Submit & View Results</button>
+    </div>
+
+    <div id="results" class="results hidden"></div>
+  </form>
+</div>
+
+<script>
+const QUESTIONS = [
+  { pillar: "Data & Technology", pillarKey: "data", text: "How would you describe the state of your organisation's data right now?", options: [
+    { label: "Data lives in spreadsheets, inboxes, and separate systems with no single source of truth.", score: 1 },
+    { label: "We have data in centralised tools but it's often incomplete, inconsistent, or out of date.", score: 2 },
+    { label: "Our data is mostly clean and centralised, though some gaps or silos remain.", score: 3 },
+    { label: "We have high-quality, consistent data in a unified system, and someone actively governs it.", score: 4 }
+  ]},
+  { pillar: "Data & Technology", pillarKey: "data", text: "When your teams need information to make a decision, what typically happens?", options: [
+    { label: "They search manually across different apps, documents, or ask a colleague who 'just knows'.", score: 1 },
+    { label: "They can usually find it, but it takes time and often involves jumping between multiple tools.", score: 2 },
+    { label: "A dashboard or report gives them most of what they need, with occasional gaps.", score: 3 },
+    { label: "The right information surfaces automatically in context — decisions are data-driven by default.", score: 4 }
+  ]},
+  { pillar: "Data & Technology", pillarKey: "data", text: "How connected are your core business systems (e.g. CRM, finance, operations, HR)?", options: [
+    { label: "Largely separate — syncing between them is manual or doesn't happen consistently.", score: 1 },
+    { label: "Some systems are integrated but key data still has to be re-entered or exported manually.", score: 2 },
+    { label: "Most systems talk to each other via integrations, though some manual work remains.", score: 3 },
+    { label: "Our systems are fully integrated with clean data flows — adding a new tool is straightforward.", score: 4 }
+  ]},
+  { pillar: "Strategy & Governance", pillarKey: "strategy", text: "How did AI become a priority in your organisation?", options: [
+    { label: "Honestly, it's mostly pressure — competitors are doing it and leadership doesn't want to be left behind.", score: 1 },
+    { label: "There's genuine interest but no clear strategy yet — it feels more reactive than planned.", score: 2 },
+    { label: "We have a roadmap and identified use cases, though it's still being formalised.", score: 3 },
+    { label: "AI is tied to specific business objectives, with measurable KPIs and executive sponsorship in place.", score: 4 }
+  ]},
+  { pillar: "Strategy & Governance", pillarKey: "strategy", text: "Before deploying an AI tool or initiative, what does your process look like?", options: [
+    { label: "We move fast — tools get adopted by teams without much central oversight or evaluation.", score: 1 },
+    { label: "There's informal review but no consistent framework for assessing risk, ROI, or fit.", score: 2 },
+    { label: "We evaluate tools against defined criteria, though governance policies are still maturing.", score: 3 },
+    { label: "Every initiative has clear success metrics, risk assessment, and governance sign-off before launch.", score: 4 }
+  ]},
+  { pillar: "Strategy & Governance", pillarKey: "strategy", text: "How does your organisation handle data privacy and compliance obligations (e.g. GDPR)?", options: [
+    { label: "We haven't fully mapped what regulations apply to us — it's a gap we know we need to close.", score: 1 },
+    { label: "We're broadly compliant but policies aren't fully documented or consistently enforced.", score: 2 },
+    { label: "We have clear policies and most teams follow them, with occasional gaps in enforcement.", score: 3 },
+    { label: "Compliance is fully embedded — consent, data handling, and AI ethics are all actively governed.", score: 4 }
+  ]},
+  { pillar: "People & Adoption", pillarKey: "people", text: "How do most employees in your organisation currently feel about AI?", options: [
+    { label: "Largely anxious or resistant — concerns about job security haven't been addressed openly.", score: 1 },
+    { label: "Mixed — some are enthusiastic but there's no shared understanding of what AI means for roles.", score: 2 },
+    { label: "Generally positive — leadership has communicated clearly and most people are open to change.", score: 3 },
+    { label: "Genuinely excited — people are actively experimenting and there's a real culture of curiosity.", score: 4 }
+  ]},
+  { pillar: "People & Adoption", pillarKey: "people", text: "When your organisation has piloted new technology in the past, what tends to happen?", options: [
+    { label: "Pilots often fade out — adoption is patchy and we rarely capture what worked or why.", score: 1 },
+    { label: "Some pilots succeed but scaling them is difficult without a clear process or sponsorship.", score: 2 },
+    { label: "We learn from pilots and usually know what to do differently, even if scaling takes time.", score: 3 },
+    { label: "We have a repeatable model for piloting, measuring impact, and scaling what delivers value.", score: 4 }
+  ]},
+  { pillar: "People & Adoption", pillarKey: "people", text: "If an AI tool gave your team a recommendation or generated output today, what would happen?", options: [
+    { label: "People would be sceptical and want to verify everything manually — trust in AI is very low.", score: 1 },
+    { label: "Some would engage with it, others ignore it — there's no shared approach or guidance.", score: 2 },
+    { label: "Most would use it as a strong starting point, applying judgement for anything high-stakes.", score: 3 },
+    { label: "Teams have clear guidelines on when to trust AI outputs, and confidence is high for defined use cases.", score: 4 }
+  ]}
+];
+
+const TIERS = [
+  { min: 9, max: 14, num: 1, name: "Exploring", color: "#A63D2F", subtitle: "AI is on your radar, but the foundations needed to deploy it effectively aren't in place yet.", recs: ["Start with your data.", "Run focused discovery.", "Address team anxieties.", "Assign a readiness owner."] },
+  { min: 15, max: 20, num: 2, name: "Gliding", color: "#C8890A", subtitle: "You've got intent, but gaps in data or governance will limit initiatives.", recs: ["Prioritise data quality.", "Formalise governance.", "Invest in upskilling.", "Run a scoped pilot."] },
+  { min: 21, max: 27, num: 3, name: "Propelling", color: "#3B824B", subtitle: "Solid foundations and the right conditions for AI value.", recs: ["Prioritise impact.", "Build a scaling framework.", "Develop ethics practices.", "Connect AI across functions."] },
+  { min: 28, max: 33, num: 4, name: "Cruising", color: "#0D5C22", subtitle: "Strong foundations and an engaged workforce.", recs: ["Explore cross-functional workflows.", "Build internal capability.", "Invest in bias auditing.", "Position capabilities visibly."] },
+  { min: 34, max: 36, num: 5, name: "Soaring", color: "#313A4C", subtitle: "Data, strategy, and people are all aligned.", recs: ["Explore advanced agent workflows.", "Share your internal playbook.", "Treat readiness as ongoing.", "Package maturity as a differentiator."] }
+];
+
+let currentQ = 0; let answers = {};
+
+function startQuiz() { document.getElementById('intro').classList.add('hidden'); document.getElementById('quiz').classList.remove('hidden'); renderQuestion(); }
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+  document.getElementById('q-pillar').textContent = q.pillar;
+  document.getElementById('q-text').textContent = q.text;
+  const list = document.getElementById('options-list'); list.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const div = document.createElement('div'); div.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
+    div.onclick = () => { answers[currentQ] = i; renderQuestion(); setTimeout(() => goNext(), 500); };
+    div.innerHTML = `<div class="option-indicator"></div><div class="option-label">${opt.label}</div>`;
+    list.appendChild(div);
+  });
+  document.getElementById('progress-fill').style.width = ((currentQ / 9) * 100) + '%';
+  document.getElementById('btn-next').disabled = answers[currentQ] === undefined;
+}
+
+function goNext() {
+  if (currentQ < 8) { currentQ++; renderQuestion(); }
+  else { document.getElementById('quiz').classList.add('hidden'); document.getElementById('email-step').classList.remove('hidden'); }
+}
+
+// FORM SUBMISSION
+document.getElementById('MC32QKQP6N55BIRPJ5OBMZ4JHTYM').onsubmit = function(e) {
+  e.preventDefault();
+  const pillarScores = { data: 0, strategy: 0, people: 0 };
+  QUESTIONS.forEach((q, i) => {
+    const sel = answers[i]; document.getElementById(`hid_q${i+1}`).value = q.options[sel].label;
+    pillarScores[q.pillarKey] += q.options[sel].score;
+  });
+  const total = pillarScores.data + pillarScores.strategy + pillarScores.people;
+  const tier = TIERS.find(t => total >= t.min && total <= t.max) || TIERS[4];
+  
+  document.getElementById('hid_score_data').value = pillarScores.data;
+  document.getElementById('hid_score_strat').value = pillarScores.strategy;
+  document.getElementById('hid_score_people').value = pillarScores.people;
+  document.getElementById('hid_score_total').value = total;
+  document.getElementById('hid_tier_name').value = tier.name;
+
+  setTimeout(() => {
+    document.getElementById('email-step').classList.add('hidden');
+    const resultsEl = document.getElementById('results'); resultsEl.classList.remove('hidden');
+    
+    const tierLegendHTML = TIERS.map(t => `<div class="tier-legend-item ${t.name === tier.name ? 'active' : ''}">${t.name}</div>`).join('');
+    const pillarHTML = `
+      <div class="pillar-card">Data & Tech: ${pillarScores.data}/12</div>
+      <div class="pillar-card">Strategy: ${pillarScores.strategy}/12</div>
+      <div class="pillar-card">People: ${pillarScores.people}/12</div>`;
+
+    resultsEl.innerHTML = `
+      <div class="result-hero"><div class="result-tier-name">${tier.name}</div><p>${tier.subtitle}</p><div style="margin-top:20px; font-weight:800">Score: ${total}/36</div></div>
+      <div class="tier-legend"><div class="tier-legend-items">${tierLegendHTML}</div></div>
+      <div class="breakdown-grid">${pillarHTML}</div>
+      <div class="recs-card"><h3>Focus Next:</h3><ul class="rec-list">${tier.recs.map(r => `<li><div class="rec-num">•</div>${r}</li>`).join('')}</ul></div>`;
+    resultsEl.classList.add('visible');
+  }, 600);
+};
+</script>
+<script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
+</body>
+</html>
