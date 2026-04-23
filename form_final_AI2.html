@@ -15,57 +15,51 @@
   }
   #nebula-quiz-container { color: var(--nebula-blue); font-family: var(--font); max-width: 800px; margin: 0 auto; padding: 24px; }
   .intro { text-align: center; }
-  .intro-tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--nebula-blue); background: var(--nebula-pop); padding: 6px 18px; border-radius: 100px; margin-bottom: 28px; }
   .intro h1 { font-size: clamp(34px, 5.5vw, 58px); font-weight: 800; line-height: 1.08; margin-bottom: 20px; }
   .intro h1 span { color: var(--nebula-forest); }
-  .intro p { font-size: 16px; color: var(--nebula-slate); line-height: 1.7; max-width: 520px; margin: 0 auto 36px; }
-  .pillars-row, .tier-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
-  .pillar-chip, .tier-chip { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--nebula-mint); padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 600; }
-  .tier-chip { border-color: var(--nebula-silver); border-radius: 8px; color: var(--nebula-slate); font-size: 11px; padding: 7px 14px; }
+  .pillars-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+  .pillar-chip { display: flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--nebula-mint); padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 600; }
   .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
-  .tier-num { width: 18px; height: 18px; border-radius: 50%; background: var(--nebula-blue); color: white; font-size: 10px; display: flex; align-items: center; justify-content: center; }
   .btn-start, .btn-submit { display: inline-flex; align-items: center; gap: 10px; background: var(--nebula-blue); color: white; font-weight: 700; padding: 16px 40px; border-radius: 100px; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 24px rgba(0,0,0,0.15); }
   .progress-wrap { margin-bottom: 40px; }
   .progress-track { height: 4px; background: var(--nebula-silver); border-radius: 10px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--nebula-forest), var(--nebula-pop)); transition: width 0.5s ease; }
   .question-card, .email-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-left: 4px solid var(--nebula-pop); border-radius: var(--radius); padding: 40px; margin-bottom: 20px; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
   .q-text { font-size: 21px; font-weight: 700; margin-bottom: 28px; }
-  .option { display: flex; align-items: flex-start; gap: 14px; background: var(--white); border: 1.5px solid var(--nebula-silver); border-radius: 12px; padding: 16px 18px; cursor: pointer; transition: 0.18s; text-align: left; width: 100%; margin-bottom: 10px; }
+  .option { display: flex; align-items: flex-start; gap: 14px; background: var(--white); border: 1.5px solid var(--nebula-silver); border-radius: 12px; padding: 16px 18px; cursor: pointer; transition: 0.18s; width: 100%; margin-bottom: 10px; text-align: left; }
   .option:hover, .option.selected { border-color: var(--nebula-forest); background: var(--nebula-mist); }
-  .option-indicator { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--nebula-silver); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .option-indicator { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--nebula-silver); flex-shrink: 0; }
   .option.selected .option-indicator { background: var(--nebula-forest); border-color: var(--nebula-forest); }
   .email-input { width: 100%; padding: 16px; border-radius: 12px; border: 1.5px solid var(--nebula-silver); font-size: 16px; margin-bottom: 12px; outline: none; }
   
-  /* Restored original results design */
+  /* Results Styles Restored */
   .results { opacity: 0; transition: all 0.45s ease; }
   .results.visible { opacity: 1; }
-  .result-hero { background: var(--nebula-blue); border-radius: var(--radius); padding: 52px 40px; text-align: center; color: white; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .result-hero { background: var(--nebula-blue); border-radius: var(--radius); padding: 52px 40px; text-align: center; color: white; margin-bottom: 16px; }
   .result-tier-label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--nebula-pop); letter-spacing: 0.2em; margin-bottom: 10px; }
   .result-tier-name { font-size: clamp(38px, 6vw, 58px); font-weight: 800; margin-bottom: 4px; }
   .result-divider { width: 48px; height: 3px; background: var(--nebula-pop); margin: 16px auto 20px; }
   .result-subtitle { font-size: 15px; color: var(--nebula-mint); line-height: 1.7; max-width: 500px; margin: 0 auto 28px; }
-  .result-score-chip { display: inline-flex; align-items: center; background: rgba(255,255,255,0.08); padding: 10px 24px; border-radius: 100px; font-weight: 700; color: white; gap: 10px; }
-  .score-star { color: var(--nebula-pop); }
+  .result-score-chip { display: inline-flex; align-items: center; background: rgba(255,255,255,0.08); padding: 10px 24px; border-radius: 100px; font-weight: 700; color: white; }
 
   .tier-legend { background: var(--white); border: 1.5px solid var(--nebula-silver); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 16px; }
   .section-label { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--nebula-slate); margin-bottom: 16px; letter-spacing: 0.16em; }
   .tier-legend-items { display: flex; gap: 8px; flex-wrap: wrap; }
-  .tier-legend-item { flex: 1; background: var(--nebula-mist); border: 1.5px solid var(--nebula-mint); padding: 12px; border-radius: 10px; text-align: center; min-width: 110px; }
+  .tier-legend-item { flex: 1; background: var(--nebula-mist); border: 1px solid var(--nebula-mint); padding: 12px; border-radius: 10px; text-align: center; min-width: 110px; }
   .tier-legend-item.active { background: var(--nebula-blue); border-color: var(--nebula-blue); color: white; }
-  .tier-legend-num { font-size: 10px; font-weight: 800; margin-bottom: 4px; color: var(--nebula-sage); }
-  .tier-legend-item.active .tier-legend-num { color: var(--nebula-pop); }
+  .tier-legend-num { font-size: 10px; font-weight: 800; margin-bottom: 4px; opacity: 0.8; }
 
   .breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 16px; }
   .pillar-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-radius: var(--radius); padding: 24px; border-top: 4px solid var(--nebula-mint); }
   .pillar-card-name { font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--nebula-slate); margin-bottom: 10px; }
-  .pillar-card-score { font-size: 34px; font-weight: 800; color: var(--nebula-blue); margin-bottom: 12px; line-height: 1; }
-  .pillar-card-score span { font-size: 15px; font-weight: 400; color: var(--nebula-slate); }
+  .pillar-card-score { font-size: 34px; font-weight: 800; color: var(--nebula-blue); margin-bottom: 12px; }
+  .pillar-card-score span { font-size: 15px; font-weight: 400; opacity: 0.6; }
   .pillar-track { height: 5px; background: var(--nebula-silver); border-radius: 10px; overflow: hidden; }
-  .pillar-fill { height: 100%; border-radius: 10px; transition: width 1s ease 0.4s; }
+  .pillar-fill { height: 100%; border-radius: 10px; }
 
   .recs-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-left: 4px solid var(--nebula-pop); border-radius: var(--radius); padding: 32px 36px; margin-bottom: 16px; }
-  .rec-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px; }
-  .rec-list li { display: flex; gap: 14px; font-size: 14px; line-height: 1.65; }
+  .rec-list { list-style: none; padding: 0; }
+  .rec-list li { display: flex; gap: 14px; margin-bottom: 14px; font-size: 14px; line-height: 1.65; }
   .rec-num { min-width: 24px; height: 24px; background: var(--nebula-blue); color: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 11px; }
 
   .hidden { display: none !important; }
@@ -77,9 +71,8 @@
   <form id="MC32QKQP6N55BIRPJ5OBMZ4JHTYM" data-uma-forms="true">
 
     <div id="intro" class="intro">
-      <div class="intro-tag">Assessment Tool</div>
-      <h1>Are you ready<br>for <span>Agentforce?</span></h1>
-      <p>Answer 9 questions to get an honest picture of your organisation's AI readiness.</p>
+      <h1>Are you ready for <span>Agentforce?</span></h1>
+      <p style="margin-bottom:30px">Answer 9 questions to get an honest picture of your organisation's AI readiness — across data, strategy, and your people.</p>
       <div class="pillars-row">
         <div class="pillar-chip"><div class="chip-dot" style="background:#3B824B"></div> Data & Tech</div>
         <div class="pillar-chip"><div class="chip-dot" style="background:#313A4C"></div> Strategy & Gov</div>
@@ -91,7 +84,7 @@
     <div id="quiz" class="hidden">
       <div class="progress-wrap"><div class="progress-track"><div id="progress-fill" class="progress-fill" style="width:0%"></div></div></div>
       <div id="question-card" class="question-card">
-        <div id="q-pillar" style="font-size:10px; font-weight:800; text-transform:uppercase; margin-bottom:10px;"></div>
+        <div id="q-pillar" style="font-size:10px; font-weight:800; text-transform:uppercase; margin-bottom:6px;"></div>
         <div id="q-text" class="q-text"></div>
         <div id="options-list" class="options"></div>
       </div>
@@ -101,7 +94,6 @@
     </div>
 
     <div id="email-step" class="email-card hidden">
-      <div class="section-label">Final Step</div>
       <div class="q-text">Where should we send your results?</div>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 4px;">
         <input type="text" id="first-name" name="FirstName" class="email-input" placeholder="First Name" required>
@@ -191,11 +183,11 @@ const QUESTIONS = [
 ];
 
 const TIERS = [
-  { min: 9,  max: 14, num: 1, name: "Exploring", color: "#A63D2F", subtitle: "AI is on your radar, but the foundations needed to deploy it effectively aren't in place yet. Knowing where you stand is the essential first step — and you're taking it.", recs: ["Start with your data: identify the biggest quality and integration gaps before evaluating any AI tools.", "Run a focused discovery session to agree on high-value AI use cases.", "Have an honest conversation with your team about AI to build trust.", "Assign someone to own AI readiness to create accountability."] },
-  { min: 15, max: 20, num: 2, name: "Gliding", color: "#C8890A", subtitle: "You've got intent and some early foundations, but meaningful gaps in your data or governance will limit AI initiatives.", recs: ["Prioritise closing your biggest data gap before starting new projects.", "Formalise your AI governance: document tool approval processes.", "Invest in a focused upskilling programme for your champions.", "Choose one well-scoped pilot and measure it rigorously."] },
-  { min: 21, max: 27, num: 3, name: "Propelling", color: "#3B824B", subtitle: "You have solid foundations and the right conditions for AI to start delivering real value.", recs: ["Shift focus from 'can we do this?' to 'where does AI create the most impact?'.", "Build a clear scaling framework so successful pilots don't stall.", "Continue developing governance practices as AI use matures.", "Start connecting AI initiatives across departments to reduce silos."] },
-  { min: 28, max: 33, num: 4, name: "Cruising", color: "#0D5C22", subtitle: "Strong foundations, good clarity, and a workforce that's engaged with change. Broaden the impact.", recs: ["Explore cross-functional AI workflows that connect decisions across the org.", "Build internal capability to reduce reliance on external tooling.", "Invest in continuous monitoring and bias auditing.", "Position your AI capabilities visibly with clients as a differentiator."] },
-  { min: 34, max: 36, num: 5, name: "Soaring", color: "#313A4C", subtitle: "You're operating ahead of most organisations. Widen your lead and keep raising the bar.", recs: ["Explore advanced capabilities like multi-agent workflows.", "Share your playbook internally so every team benefits from what's working.", "Treat readiness as an ongoing practice, not a destination.", "Consider how maturity can be packaged as a client-facing differentiator."] }
+  { min: 9, max: 14, num: 1, name: "Exploring", color: "#A63D2F", subtitle: "AI is on your radar, but the foundations needed to deploy it effectively aren't in place yet.", recs: ["Start with your data: identify the biggest quality gaps.", "Run focused discovery sessions.", "Address team anxieties openly.", "Assign a part-time AI readiness owner."] },
+  { min: 15, max: 20, num: 2, name: "Gliding", color: "#C8890A", subtitle: "You have early foundations, but meaningful gaps exist.", recs: ["Prioritise closing siloed data gaps.", "Formalise AI governance processes.", "Invest in focused upskilling.", "Choose one well-scoped pilot to measure."] },
+  { min: 21, max: 27, num: 3, name: "Propelling", color: "#3B824B", subtitle: "You have solid foundations ready for consistent execution.", recs: ["Focus on high-value impact use cases.", "Build a scaling framework for pilots.", "Develop governance as AI matures.", "Connect AI initiatives across functions."] },
+  { min: 28, max: 33, num: 4, name: "Cruising", color: "#0D5C22", subtitle: "Strong foundations and workforce engagement are delivering value.", recs: ["Explore cross-functional AI workflows.", "Build internal competencies.", "Invest in continuous bias auditing.", "Position your AI capabilities visibly to clients."] },
+  { min: 34, max: 36, num: 5, name: "Soaring", color: "#313A4C", subtitle: "Data, strategy, and people are perfectly aligned.", recs: ["Explore advanced multi-agent workflows.", "Share your internal playbook globally.", "Treat readiness as an ongoing practice.", "Package maturity as a differentiator."] }
 ];
 
 let currentQ = 0; let answers = {};
@@ -210,7 +202,7 @@ function renderQuestion() {
   q.options.forEach((opt, i) => {
     const div = document.createElement('div'); div.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
     div.onclick = () => { answers[currentQ] = i; renderQuestion(); document.getElementById('btn-next').disabled = false; };
-    div.innerHTML = `<div class="option-indicator"><svg width="11" height="11" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div><div class="option-content"><div class="option-label">${opt.label}</div></div>`;
+    div.innerHTML = `<div class="option-indicator"></div><div class="option-label">${opt.label}</div>`;
     list.appendChild(div);
   });
   document.getElementById('progress-fill').style.width = ((currentQ / 9) * 100) + '%';
@@ -221,23 +213,23 @@ function goNext() {
   else { document.getElementById('quiz').classList.add('hidden'); document.getElementById('email-step').classList.remove('hidden'); }
 }
 
-function goBack() { if (currentQ > 0) { currentQ--; renderQuestion(); } }
-
+// RESTORED SUBMISSION LOGIC
 document.getElementById('MC32QKQP6N55BIRPJ5OBMZ4JHTYM').onsubmit = function(e) {
   e.preventDefault();
-  const pillarScores = { data: {s:0, color:'#3B824B', label:'Data & Tech'}, strategy: {s:0, color:'#313A4C', label:'Strategy & Gov'}, people: {s:0, color:'#BAD532', label:'People & Adoption'} };
+  const pillarScores = { data: 0, strategy: 0, people: 0 };
   
   QUESTIONS.forEach((q, i) => {
-    const sel = answers[i]; document.getElementById(`hid_q${i+1}`).value = q.options[sel].label;
-    pillarScores[q.pillarKey].s += q.options[sel].score;
+    const sel = answers[i]; 
+    document.getElementById(`hid_q${i+1}`).value = q.options[sel].label;
+    pillarScores[q.pillarKey] += q.options[sel].score;
   });
   
-  const total = pillarScores.data.s + pillarScores.strategy.s + pillarScores.people.s;
+  const total = pillarScores.data + pillarScores.strategy + pillarScores.people;
   const tier = TIERS.find(t => total >= t.min && total <= t.max) || TIERS[4];
   
-  document.getElementById('hid_score_data').value = pillarScores.data.s;
-  document.getElementById('hid_score_strat').value = pillarScores.strategy.s;
-  document.getElementById('hid_score_people').value = pillarScores.people.s;
+  document.getElementById('hid_score_data').value = pillarScores.data;
+  document.getElementById('hid_score_strat').value = pillarScores.strategy;
+  document.getElementById('hid_score_people').value = pillarScores.people;
   document.getElementById('hid_score_total').value = total;
   document.getElementById('hid_tier_name').value = tier.name;
 
@@ -245,13 +237,23 @@ document.getElementById('MC32QKQP6N55BIRPJ5OBMZ4JHTYM').onsubmit = function(e) {
     document.getElementById('email-step').classList.add('hidden');
     const resultsEl = document.getElementById('results'); resultsEl.classList.remove('hidden');
     
-    const tierLegendHTML = TIERS.map(t => `<div class="tier-legend-item ${t.num === tier.num ? 'active' : ''}"><div class="tier-legend-num">Level ${t.num}</div><div class="tier-legend-name">${t.name}</div></div>`).join('');
-    const pillarHTML = Object.entries(pillarScores).map(([key, p]) => `<div class="pillar-card" style="border-top-color:${p.color}"><div class="pillar-card-name">${p.label}</div><div class="pillar-card-score">${p.s}<span> / 12</span></div><div class="pillar-track"><div class="pillar-fill" style="width:${(p.s/12)*100}%; background:${p.color}"></div></div></div>`).join('');
-
+    // RESTORED UI ELEMENTS
+    const tierLegendHTML = TIERS.map(t => `<div class="tier-legend-item ${t.name === tier.name ? 'active' : ''}"><div class="tier-legend-num">Level ${t.num}</div><div>${t.name}</div></div>`).join('');
+    
     resultsEl.innerHTML = `
-      <div class="result-hero"><div class="result-tier-label">Your AI Readiness Level</div><div class="result-tier-name">${tier.name}</div><div class="result-divider"></div><p class="result-subtitle">${tier.subtitle}</p><div class="result-score-chip"><span class="score-star">★</span>Overall score: ${total} / 36</div></div>
-      <div class="tier-legend"><div class="section-label">The five levels</div><div class="tier-legend-items">${tierLegendHTML}</div></div>
-      <div class="breakdown-grid">${pillarHTML}</div>
+      <div class="result-hero">
+        <div class="result-tier-label">Your Readiness Level</div>
+        <div class="result-tier-name">${tier.name}</div>
+        <div class="result-divider"></div>
+        <p class="result-subtitle">${tier.subtitle}</p>
+        <div class="result-score-chip">Overall Score: ${total} / 36</div>
+      </div>
+      <div class="tier-legend"><div class="section-label">The Five Levels</div><div class="tier-legend-items">${tierLegendHTML}</div></div>
+      <div class="breakdown-grid">
+        <div class="pillar-card"><div class="pillar-card-name">Data & Tech</div><div class="pillar-card-score">${pillarScores.data}<span> / 12</span></div><div class="pillar-track"><div style="background:#3B824B; width:${(pillarScores.data/12)*100}%" class="pillar-fill"></div></div></div>
+        <div class="pillar-card"><div class="pillar-card-name">Strategy & Gov</div><div class="pillar-card-score">${pillarScores.strategy}<span> / 12</span></div><div class="pillar-track"><div style="background:#313A4C; width:${(pillarScores.strategy/12)*100}%" class="pillar-fill"></div></div></div>
+        <div class="pillar-card"><div class="pillar-card-name">People & Adoption</div><div class="pillar-card-score">${pillarScores.people}<span> / 12</span></div><div class="pillar-track"><div style="background:#BAD532; width:${(pillarScores.people/12)*100}%" class="pillar-fill"></div></div></div>
+      </div>
       <div class="recs-card"><div class="section-label">Where to focus next</div><ul class="rec-list">${tier.recs.map((r, i) => `<li><div class="rec-num">${i+1}</div>${r}</li>`).join('')}</ul></div>`;
     resultsEl.classList.add('visible');
   }, 700);
