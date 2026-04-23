@@ -27,24 +27,25 @@
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--nebula-forest), var(--nebula-pop)); transition: width 0.5s ease; }
   .question-card, .email-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-left: 4px solid var(--nebula-pop); border-radius: var(--radius); padding: 40px; margin-bottom: 20px; box-shadow: 0 2px 16px rgba(0,0,0,0.07); }
   .q-text { font-size: 21px; font-weight: 700; margin-bottom: 28px; }
-  .option { display: flex; align-items: flex-start; gap: 14px; background: var(--white); border: 1.5px solid var(--nebula-silver); border-radius: 12px; padding: 16px 18px; cursor: pointer; transition: 0.18s; width: 100%; margin-bottom: 10px; }
+  .option { display: flex; align-items: flex-start; gap: 14px; background: var(--white); border: 1.5px solid var(--nebula-silver); border-radius: 12px; padding: 16px 18px; cursor: pointer; transition: 0.18s; width: 100%; margin-bottom: 10px; text-align: left; }
   .option:hover, .option.selected { border-color: var(--nebula-forest); background: var(--nebula-mist); }
   .option-indicator { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--nebula-silver); flex-shrink: 0; }
   .option.selected .option-indicator { background: var(--nebula-forest); border-color: var(--nebula-forest); }
   .email-input { width: 100%; padding: 16px; border-radius: 12px; border: 1.5px solid var(--nebula-silver); font-size: 16px; margin-bottom: 12px; outline: none; }
   
-  /* Results Styles Restored */
-  .results { opacity: 0; transition: 0.45s ease; }
+  /* Restored Results UI */
+  .results { opacity: 0; transition: all 0.45s ease; }
   .results.visible { opacity: 1; }
   .result-hero { background: var(--nebula-blue); border-radius: var(--radius); padding: 52px 40px; text-align: center; color: white; margin-bottom: 16px; }
   .result-tier-name { font-size: 58px; font-weight: 800; margin-bottom: 10px; }
+  .result-divider { width: 48px; height: 3px; background: var(--nebula-pop); margin: 16px auto 20px; }
   .tier-legend { background: var(--white); border: 1.5px solid var(--nebula-silver); padding: 24px; border-radius: var(--radius); margin-bottom: 16px; }
   .tier-legend-items { display: flex; gap: 8px; flex-wrap: wrap; }
-  .tier-legend-item { flex: 1; background: var(--nebula-mist); padding: 12px; border-radius: 10px; text-align: center; font-size: 12px; border: 1px solid var(--nebula-mint); }
+  .tier-legend-item { flex: 1; background: var(--nebula-mist); padding: 12px; border-radius: 100px; text-align: center; font-size: 12px; border: 1px solid var(--nebula-mint); min-width: 100px; }
   .tier-legend-item.active { background: var(--nebula-blue); color: white; border-color: var(--nebula-blue); }
-  .breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; }
+  .breakdown-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 16px; }
   .pillar-card { background: var(--white); border: 1.5px solid var(--nebula-silver); padding: 24px; border-radius: var(--radius); border-top: 4px solid var(--nebula-mint); }
-  .recs-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-left: 4px solid var(--nebula-pop); padding: 32px; border-radius: var(--radius); }
+  .recs-card { background: var(--white); border: 1.5px solid var(--nebula-silver); border-left: 4px solid var(--nebula-pop); padding: 32px; border-radius: var(--radius); margin-bottom: 16px; }
   .rec-list { list-style: none; padding: 0; }
   .rec-list li { display: flex; gap: 14px; margin-bottom: 12px; font-size: 14px; line-height: 1.6; }
   .rec-num { min-width: 24px; height: 24px; background: var(--nebula-blue); color: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
@@ -68,9 +69,7 @@
     </div>
 
     <div id="quiz" class="hidden">
-      <div class="progress-wrap">
-        <div class="progress-track"><div id="progress-fill" class="progress-fill" style="width:0%"></div></div>
-      </div>
+      <div class="progress-wrap"><div class="progress-track"><div id="progress-fill" class="progress-fill" style="width:0%"></div></div></div>
       <div id="question-card" class="question-card">
         <div id="q-pillar" style="font-size:10px; font-weight:800; text-transform:uppercase; margin-bottom:10px;"></div>
         <div id="q-text" class="q-text"></div>
@@ -133,49 +132,49 @@ const QUESTIONS = [
     { label: "Our systems are fully integrated with clean data flows — adding a new tool is straightforward.", score: 4 }
   ]},
   { pillar: "Strategy & Governance", pillarKey: "strategy", text: "How did AI become a priority in your organisation?", options: [
-    { label: "Honestly, it's mostly pressure — competitors are doing it and leadership doesn't want to be left behind.", score: 1 },
-    { label: "There's genuine interest but no clear strategy yet — it feels more reactive than planned.", score: 2 },
-    { label: "We have a roadmap and identified use cases, though it's still being formalised.", score: 3 },
-    { label: "AI is tied to specific business objectives, with measurable KPIs and executive sponsorship in place.", score: 4 }
+    { label: "Competitor pressure — leadership doesn't want to be left behind.", score: 1 },
+    { label: "There's genuine interest but no clear strategy yet.", score: 2 },
+    { label: "We have a roadmap and identified use cases being formalised.", score: 3 },
+    { label: "AI is tied to business objectives with measurable KPIs and sponsorship.", score: 4 }
   ]},
-  { pillar: "Strategy & Governance", pillarKey: "strategy", text: "Before deploying an AI tool or initiative, what does your process look like?", options: [
-    { label: "We move fast — tools get adopted by teams without much central oversight or evaluation.", score: 1 },
-    { label: "There's informal review but no consistent framework for assessing risk, ROI, or fit.", score: 2 },
-    { label: "We evaluate tools against defined criteria, though governance policies are still maturing.", score: 3 },
-    { label: "Every initiative has clear success metrics, risk assessment, and governance sign-off before launch.", score: 4 }
+  { pillar: "Strategy & Governance", pillarKey: "strategy", text: "Before deploying AI, what does your process look like?", options: [
+    { label: "Adopted by teams without central oversight.", score: 1 },
+    { label: "Informal review but no consistent ROI framework.", score: 2 },
+    { label: "Evaluation against defined criteria; governance policies maturing.", score: 3 },
+    { label: "Defined success metrics, risk assessment, and sign-off before launch.", score: 4 }
   ]},
-  { pillar: "Strategy & Governance", pillarKey: "strategy", text: "How does your organisation handle data privacy and compliance obligations (e.g. GDPR)?", options: [
-    { label: "We haven't fully mapped what regulations apply to us — it's a gap we know we need to close.", score: 1 },
-    { label: "We're broadly compliant but policies aren't fully documented or consistently enforced.", score: 2 },
-    { label: "We have clear policies and most teams follow them, with occasional gaps in enforcement.", score: 3 },
-    { label: "Compliance is fully embedded — consent, data handling, and AI ethics are all actively governed.", score: 4 }
+  { pillar: "Strategy & Governance", pillarKey: "strategy", text: "How is data privacy and compliance handled?", options: [
+    { label: "We haven't fully mapped what regulations apply to us.", score: 1 },
+    { label: "Broadly compliant but policies aren't fully documented.", score: 2 },
+    { label: "Clear policies and most teams follow them.", score: 3 },
+    { label: "Compliance is embedded; AI ethics are actively governed.", score: 4 }
   ]},
-  { pillar: "People & Adoption", pillarKey: "people", text: "How do most employees in your organisation currently feel about AI?", options: [
-    { label: "Largely anxious or resistant — concerns about job security haven't been addressed openly.", score: 1 },
-    { label: "Mixed — some are enthusiastic but there's no shared understanding of what AI means for roles.", score: 2 },
-    { label: "Generally positive — leadership has communicated clearly and most people are open to change.", score: 3 },
-    { label: "Genuinely excited — people are actively experimenting and there's a real culture of curiosity.", score: 4 }
+  { pillar: "People & Adoption", pillarKey: "people", text: "How do employees feel about AI?", options: [
+    { label: "Anxious or resistant — job security concerns exist.", score: 1 },
+    { label: "Mixed — no shared understanding of AI impact on roles.", score: 2 },
+    { label: "Positive — leadership has communicated clearly.", score: 3 },
+    { label: "Excited — people are actively experimenting with curiosity.", score: 4 }
   ]},
-  { pillar: "People & Adoption", pillarKey: "people", text: "When your organisation has piloted new technology in the past, what tends to happen?", options: [
-    { label: "Pilots often fade out — adoption is patchy and we rarely capture what worked or why.", score: 1 },
-    { label: "Some pilots succeed but scaling them is difficult without a clear process or sponsorship.", score: 2 },
-    { label: "We learn from pilots and usually know what to do differently, even if scaling takes time.", score: 3 },
-    { label: "We have a repeatable model for piloting, measuring impact, and scaling what delivers value.", score: 4 }
+  { pillar: "People & Adoption", pillarKey: "people", text: "When you pilot new technology, what happens?", options: [
+    { label: "Often fade out — adoption is patchy.", score: 1 },
+    { label: "Succeed but scaling is difficult without clear process.", score: 2 },
+    { label: "We learn and usually know how to do differently next time.", score: 3 },
+    { label: "Repeatable model for piloting, measuring, and scaling value.", score: 4 }
   ]},
-  { pillar: "People & Adoption", pillarKey: "people", text: "If an AI tool gave your team a recommendation or generated output today, what would happen?", options: [
-    { label: "People would be sceptical and want to verify everything manually — trust in AI is very low.", score: 1 },
-    { label: "Some would engage with it, others ignore it — there's no shared approach or guidance.", score: 2 },
-    { label: "Most would use it as a strong starting point, applying judgement for anything high-stakes.", score: 3 },
-    { label: "Teams have clear guidelines on when to trust AI outputs, and confidence is high for defined use cases.", score: 4 }
+  { pillar: "People & Adoption", pillarKey: "people", text: "What happens if an AI tool gives a recommendation today?", options: [
+    { label: "People are skeptical and want to verify everything manually.", score: 1 },
+    { label: "Some engagement, others ignore it — no shared guidance.", score: 2 },
+    { label: "Used as a strong starting point with applied judgment.", score: 3 },
+    { label: "Clear trust guidelines; high confidence for defined use cases.", score: 4 }
   ]}
 ];
 
 const TIERS = [
-  { min: 9, max: 14, num: 1, name: "Exploring", color: "#A63D2F", subtitle: "AI is on your radar, but the foundations needed to deploy it effectively aren't in place yet.", recs: ["Start with your data.", "Run focused discovery.", "Address team anxieties.", "Assign a readiness owner."] },
-  { min: 15, max: 20, num: 2, name: "Gliding", color: "#C8890A", subtitle: "You've got intent, but gaps in data or governance will limit initiatives.", recs: ["Prioritise data quality.", "Formalise governance.", "Invest in upskilling.", "Run a scoped pilot."] },
-  { min: 21, max: 27, num: 3, name: "Propelling", color: "#3B824B", subtitle: "Solid foundations and the right conditions for AI value.", recs: ["Prioritise impact.", "Build a scaling framework.", "Develop ethics practices.", "Connect AI across functions."] },
-  { min: 28, max: 33, num: 4, name: "Cruising", color: "#0D5C22", subtitle: "Strong foundations and an engaged workforce.", recs: ["Explore cross-functional workflows.", "Build internal capability.", "Invest in bias auditing.", "Position capabilities visibly."] },
-  { min: 34, max: 36, num: 5, name: "Soaring", color: "#313A4C", subtitle: "Data, strategy, and people are all aligned.", recs: ["Explore advanced agent workflows.", "Share your internal playbook.", "Treat readiness as ongoing.", "Package maturity as a differentiator."] }
+  { min: 9, max: 14, num: 1, name: "Exploring", color: "#A63D2F", subtitle: "AI is on your radar, but the foundations needed aren't in place yet.", recs: ["Start with your data: identify the biggest quality gaps.", "Run focused discovery sessions.", "Address team anxieties openly.", "Assign a part-time AI readiness owner."] },
+  { min: 15, max: 20, num: 2, name: "Gliding", color: "#C8890A", subtitle: "You have early foundations, but meaningful gaps exist.", recs: ["Prioritise closing siloed data gaps.", "Formalise AI governance processes.", "Invest in focused upskilling.", "Choose one well-scoped pilot to measure."] },
+  { min: 21, max: 27, num: 3, name: "Propelling", color: "#3B824B", subtitle: "You have solid foundations ready for consistent execution.", recs: ["Focus on high-value impact use cases.", "Build a scaling framework for pilots.", "Develop governance as AI matures.", "Connect AI initiatives across functions."] },
+  { min: 28, max: 33, num: 4, name: "Cruising", color: "#0D5C22", subtitle: "Strong foundations and workforce engagement are delivering value.", recs: ["Explore cross-functional AI workflows.", "Build internal competencies.", "Invest in continuous bias auditing.", "Position your AI capabilities visibly to clients."] },
+  { min: 34, max: 36, num: 5, name: "Soaring", color: "#313A4C", subtitle: "Data, strategy, and people are perfectly aligned.", recs: ["Explore advanced multi-agent workflows.", "Share your internal playbook globally.", "Treat readiness as an ongoing practice.", "Package maturity as a differentiator."] }
 ];
 
 let currentQ = 0; let answers = {};
@@ -189,27 +188,29 @@ function renderQuestion() {
   const list = document.getElementById('options-list'); list.innerHTML = '';
   q.options.forEach((opt, i) => {
     const div = document.createElement('div'); div.className = 'option' + (answers[currentQ] === i ? ' selected' : '');
-    div.onclick = () => { answers[currentQ] = i; renderQuestion(); setTimeout(() => goNext(), 500); };
+    div.onclick = () => { answers[currentQ] = i; renderQuestion(); document.getElementById('btn-next').disabled = false; };
     div.innerHTML = `<div class="option-indicator"></div><div class="option-label">${opt.label}</div>`;
     list.appendChild(div);
   });
   document.getElementById('progress-fill').style.width = ((currentQ / 9) * 100) + '%';
-  document.getElementById('btn-next').disabled = answers[currentQ] === undefined;
 }
 
 function goNext() {
-  if (currentQ < 8) { currentQ++; renderQuestion(); }
+  if (currentQ < 8) { currentQ++; renderQuestion(); document.getElementById('btn-next').disabled = (answers[currentQ] === undefined); }
   else { document.getElementById('quiz').classList.add('hidden'); document.getElementById('email-step').classList.remove('hidden'); }
 }
 
-// FORM SUBMISSION
+// RESTORED SUBMISSION LOGIC
 document.getElementById('MC32QKQP6N55BIRPJ5OBMZ4JHTYM').onsubmit = function(e) {
-  e.preventDefault();
+  e.preventDefault(); // Pause to calculate
   const pillarScores = { data: 0, strategy: 0, people: 0 };
+  
   QUESTIONS.forEach((q, i) => {
-    const sel = answers[i]; document.getElementById(`hid_q${i+1}`).value = q.options[sel].label;
+    const sel = answers[i]; 
+    document.getElementById(`hid_q${i+1}`).value = q.options[sel].label;
     pillarScores[q.pillarKey] += q.options[sel].score;
   });
+  
   const total = pillarScores.data + pillarScores.strategy + pillarScores.people;
   const tier = TIERS.find(t => total >= t.min && total <= t.max) || TIERS[4];
   
@@ -219,23 +220,24 @@ document.getElementById('MC32QKQP6N55BIRPJ5OBMZ4JHTYM').onsubmit = function(e) {
   document.getElementById('hid_score_total').value = total;
   document.getElementById('hid_tier_name').value = tier.name;
 
+  // Show results UI after background script has captured fields
   setTimeout(() => {
     document.getElementById('email-step').classList.add('hidden');
     const resultsEl = document.getElementById('results'); resultsEl.classList.remove('hidden');
     
     const tierLegendHTML = TIERS.map(t => `<div class="tier-legend-item ${t.name === tier.name ? 'active' : ''}">${t.name}</div>`).join('');
-    const pillarHTML = `
-      <div class="pillar-card">Data & Tech: ${pillarScores.data}/12</div>
-      <div class="pillar-card">Strategy: ${pillarScores.strategy}/12</div>
-      <div class="pillar-card">People: ${pillarScores.people}/12</div>`;
-
+    
     resultsEl.innerHTML = `
-      <div class="result-hero"><div class="result-tier-name">${tier.name}</div><p>${tier.subtitle}</p><div style="margin-top:20px; font-weight:800">Score: ${total}/36</div></div>
-      <div class="tier-legend"><div class="tier-legend-items">${tierLegendHTML}</div></div>
-      <div class="breakdown-grid">${pillarHTML}</div>
-      <div class="recs-card"><h3>Focus Next:</h3><ul class="rec-list">${tier.recs.map(r => `<li><div class="rec-num">•</div>${r}</li>`).join('')}</ul></div>`;
+      <div class="result-hero"><div class="result-tier-name">${tier.name}</div><div class="result-divider"></div><p>${tier.subtitle}</p><div style="margin-top:20px; font-weight:800">Overall Score: ${total}/36</div></div>
+      <div class="tier-legend"><div class="section-label">Readiness Levels</div><div class="tier-legend-items">${tierLegendHTML}</div></div>
+      <div class="breakdown-grid">
+        <div class="pillar-card"><div class="pillar-card-name">Data & Tech</div><div class="pillar-card-score">${pillarScores.data} / 12</div><div class="progress-track"><div style="background:#3B824B; width:${(pillarScores.data/12)*100}%" class="progress-fill"></div></div></div>
+        <div class="pillar-card"><div class="pillar-card-name">Strategy</div><div class="pillar-card-score">${pillarScores.strategy} / 12</div><div class="progress-track"><div style="background:#313A4C; width:${(pillarScores.strategy/12)*100}%" class="progress-fill"></div></div></div>
+        <div class="pillar-card"><div class="pillar-card-name">People</div><div class="pillar-card-score">${pillarScores.people} / 12</div><div class="progress-track"><div style="background:#BAD532; width:${(pillarScores.people/12)*100}%" class="progress-fill"></div></div></div>
+      </div>
+      <div class="recs-card"><div class="section-label">Focus Next</div><ul class="rec-list">${tier.recs.map((r, i) => `<li><div class="rec-num">${i+1}</div>${r}</li>`).join('')}</ul></div>`;
     resultsEl.classList.add('visible');
-  }, 600);
+  }, 700);
 };
 </script>
 <script async src="https://nebula.my.site.com/lp/assets/scripts/external-form-handler-host.min.js" onload="SFDCFormHandler.init('https://nebula.my.site.com/lp')"></script>
